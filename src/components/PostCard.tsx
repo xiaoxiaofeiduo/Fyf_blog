@@ -12,7 +12,12 @@ export function PostCard({ post, compact = false }: PostCardProps) {
     <Link to={`/posts/${post.slug}`} className="post-card-link">
       <Card className={`post-card ${compact ? 'post-card-compact' : ''}`} color={post.cover as never}>
         <div className="post-card-topline">
-          <span>{formatDate(post.date)}</span>
+          <time
+            className="post-published-at"
+            dateTime={post.date}
+          >
+            {formatDate(post.date)}
+          </time>
           <span>{post.readingTime}</span>
         </div>
         <h3>{post.title}</h3>

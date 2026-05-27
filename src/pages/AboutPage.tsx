@@ -34,11 +34,11 @@ export function AboutPage() {
         <Collapse
           defaultExpanded
           question="这个博客如何新增文章？"
-          answer="在 src/content/posts 中新增 Markdown 文件，并在 src/lib/posts.ts 中导入即可。"
+          answer="可以在 src/content/posts 下新增单个 Markdown，也可以新建一个文件夹，在文件夹内放 Markdown 和图片资源。"
         />
         <Collapse
-          question="个人资料在哪里修改？"
-          answer="首页、关于页和 index.html 中已经写入云飞的软件测试工程师身份，可继续补充头像、社交链接和项目经历。"
+          question="文件夹式文章怎么引用图片？"
+          answer="在同一个文章文件夹内放图片，然后在 Markdown 中使用相对路径，例如 ![截图](image.png)。"
         />
         <Collapse
           question="为什么使用 animal-island-ui？"

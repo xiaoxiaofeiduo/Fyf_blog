@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import { Button, Footer, Icon } from 'animal-island-ui';
 import { AboutPage } from './pages/AboutPage';
 import { HomePage } from './pages/HomePage';
@@ -40,9 +40,9 @@ export function App() {
           ))}
         </nav>
 
-        <a className="header-action" href="/posts">
+        <Link className="header-action" to="/posts">
           <Button type="primary" size="small">开始阅读</Button>
-        </a>
+        </Link>
       </header>
 
       <main>

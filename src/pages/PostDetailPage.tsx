@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Button, Card, Divider } from 'animal-island-ui';
-import { formatDate, getPostBySlug } from '../lib/posts';
+import { formatDate, getPostBySlug, postAssetMap } from '../lib/posts';
 import { renderMarkdown } from '../lib/markdown';
 
 export function PostDetailPage() {
@@ -20,6 +20,13 @@ export function PostDetailPage() {
       </section>
     );
   }
+
+  const postDir = post.sourcePath.slice(0, post.sourcePath.lastIndexOf('/'));
+  const resolvePostAsset = (url: string) => {
+    if (/^(https?:|data:|\/)/.test(url)) return url;
+    const normalized = url.replace(/^\.\//, '');
+    return postAssetMap[`${postDir}/${normalized}`];
+  };
 
   return (
     <article className="article-page">
@@ -43,7 +50,7 @@ export function PostDetailPage() {
       <Divider />
 
       <Card className="article-card">
-        <div className="article-content">{renderMarkdown(post.content)}</div>
+        <div className="article-content">{renderMarkdown(post.content, resolvePostAsset)}</div>
       </Card>
     </article>
   );

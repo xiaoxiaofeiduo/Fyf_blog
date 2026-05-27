@@ -1,5 +1,6 @@
 export interface BlogPost {
   slug: string;
+  sourcePath: string;
   title: string;
   date: string;
   summary: string;
@@ -12,20 +13,33 @@ export interface BlogPost {
 
 interface PostSource {
   slug: string;
+  sourcePath: string;
   raw: string;
 }
 
-const postModules = import.meta.glob('../content/posts/*.md', {
+const postModules = import.meta.glob('../content/posts/**/*.md', {
   eager: true,
   query: '?raw',
   import: 'default',
 }) as Record<string, string>;
 
+export const postAssetMap = import.meta.glob('../content/posts/**/*.{png,jpg,jpeg,gif,webp,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
 const sources: PostSource[] = Object.entries(postModules).map(([path, raw]) => {
-  const filename = path.split('/').pop() ?? '';
+  const parts = path.split('/');
+  const filename = parts.pop() ?? '';
+  const folder = parts.pop();
+  const fileSlug = filename.replace(/\.md$/, '');
 
   return {
-    slug: filename.replace(/\.md$/, ''),
+    slug: fileSlug === 'index' || fileSlug === 'README' || fileSlug === '分享'
+      ? folder ?? fileSlug
+      : fileSlug,
+    sourcePath: path,
     raw,
   };
 });
@@ -59,15 +73,34 @@ function readBoolean(value = 'false') {
   return value.toLowerCase() === 'true';
 }
 
+function readTitleFromBody(body: string, fallback: string) {
+  const heading = body.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  return heading || fallback;
+}
+
+function readSummaryFromBody(body: string) {
+  return body
+    .split('\n')
+    .map((line) => line.trim())
+    .find((line) =>
+      line &&
+      !line.startsWith('#') &&
+      !line.startsWith('![') &&
+      !line.startsWith('<!--') &&
+      !line.startsWith('```')
+    ) ?? '';
+}
+
 export const posts: BlogPost[] = sources
-  .map(({ slug, raw }) => {
+  .map(({ slug, sourcePath, raw }) => {
     const { meta, body } = parseFrontmatter(raw);
 
     return {
       slug,
-      title: meta.get('title') ?? slug,
+      sourcePath,
+      title: meta.get('title') ?? readTitleFromBody(body, slug),
       date: meta.get('date') ?? '2026-01-01',
-      summary: meta.get('summary') ?? '',
+      summary: meta.get('summary') ?? readSummaryFromBody(body),
       tags: readTags(meta.get('tags')),
       cover: meta.get('cover'),
       readingTime: meta.get('readingTime') ?? '5 分钟',

@@ -1,13 +1,34 @@
 import React from 'react';
 
-function inline(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*)/g);
+function normalizeUrl(value: string) {
+  return value.trim().replace(/^<(.+)>$/, '$1');
+}
+
+function inline(
+  text: string,
+  resolveAsset: (url: string) => string | undefined = () => undefined
+) {
+  const parts = text.split(/(!\[[^\]]*\]\((?:<[^>]+>|[^)]+)\)|\[[^\]]+\]\((?:<[^>]+>|[^)]+)\)|`[^`]+`|\*\*[^*]+\*\*)/g);
 
   return parts.map((part, index) => {
+    const imageMatch = part.match(/^!\[([^\]]*)\]\((<[^>]+>|[^)]+)\)$/);
+    if (imageMatch) {
+      const src = normalizeUrl(imageMatch[2]);
+      return (
+        <img
+          key={index}
+          src={resolveAsset(src) ?? src}
+          alt={imageMatch[1]}
+          loading="lazy"
+        />
+      );
+    }
+
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (linkMatch) {
+      const href = normalizeUrl(linkMatch[2]);
       return (
-        <a key={index} href={linkMatch[2]} target="_blank" rel="noreferrer">
+        <a key={index} href={href} target="_blank" rel="noreferrer">
           {linkMatch[1]}
         </a>
       );
@@ -25,7 +46,10 @@ function inline(text: string) {
   });
 }
 
-export function renderMarkdown(markdown: string) {
+export function renderMarkdown(
+  markdown: string,
+  resolveAsset: (url: string) => string | undefined = () => undefined
+) {
   const lines = markdown.split('\n');
   const nodes: React.ReactNode[] = [];
   let i = 0;
@@ -34,6 +58,12 @@ export function renderMarkdown(markdown: string) {
     const line = lines[i];
 
     if (!line.trim()) {
+      i += 1;
+      continue;
+    }
+
+    const commentLine = line.match(/^<!--[\s\S]*-->$/);
+    if (commentLine) {
       i += 1;
       continue;
     }
@@ -69,14 +99,33 @@ export function renderMarkdown(markdown: string) {
       continue;
     }
 
+    const imageOnly = line.match(/^!\[([^\]]*)\]\((<[^>]+>|[^)]+)\)$/);
+    if (imageOnly) {
+      const src = normalizeUrl(imageOnly[2]);
+      nodes.push(
+        <figure key={nodes.length} className="article-image">
+          <img src={resolveAsset(src) ?? src} alt={imageOnly[1]} loading="lazy" />
+          {imageOnly[1] && <figcaption>{imageOnly[1]}</figcaption>}
+        </figure>
+      );
+      i += 1;
+      continue;
+    }
+
     if (line.startsWith('# ')) {
-      nodes.push(<h1 key={nodes.length}>{inline(line.slice(2))}</h1>);
+      nodes.push(<h1 key={nodes.length}>{inline(line.slice(2), resolveAsset)}</h1>);
       i += 1;
       continue;
     }
 
     if (line.startsWith('## ')) {
-      nodes.push(<h2 key={nodes.length}>{inline(line.slice(3))}</h2>);
+      nodes.push(<h2 key={nodes.length}>{inline(line.slice(3), resolveAsset)}</h2>);
+      i += 1;
+      continue;
+    }
+
+    if (line.startsWith('### ')) {
+      nodes.push(<h3 key={nodes.length}>{inline(line.slice(4), resolveAsset)}</h3>);
       i += 1;
       continue;
     }
@@ -90,7 +139,7 @@ export function renderMarkdown(markdown: string) {
       nodes.push(
         <ul key={nodes.length}>
           {items.map((item, index) => (
-            <li key={index}>{inline(item)}</li>
+            <li key={index}>{inline(item, resolveAsset)}</li>
           ))}
         </ul>
       );
@@ -106,7 +155,7 @@ export function renderMarkdown(markdown: string) {
       nodes.push(
         <ol key={nodes.length}>
           {items.map((item, index) => (
-            <li key={index}>{inline(item)}</li>
+            <li key={index}>{inline(item, resolveAsset)}</li>
           ))}
         </ol>
       );
@@ -122,6 +171,8 @@ export function renderMarkdown(markdown: string) {
       !lines[i].startsWith('- ') &&
       !lines[i].startsWith('* ') &&
       !lines[i].startsWith('    ') &&
+      !lines[i].startsWith('![') &&
+      !lines[i].startsWith('<!--') &&
       !/^\d+\.\s/.test(lines[i]) &&
       !lines[i].startsWith('```')
     ) {
@@ -129,7 +180,7 @@ export function renderMarkdown(markdown: string) {
       i += 1;
     }
 
-    nodes.push(<p key={nodes.length}>{inline(paragraph.join(' '))}</p>);
+    nodes.push(<p key={nodes.length}>{inline(paragraph.join(' '), resolveAsset)}</p>);
   }
 
   return nodes;
