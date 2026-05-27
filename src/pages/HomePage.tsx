@@ -37,6 +37,8 @@ export function HomePage() {
   return (
     <>
       <section className="hero-section">
+        <div className="hero-avatar" aria-label="云飞头像" />
+
         <div className="hero-copy">
           <span className="eyebrow">Software Test Engineer / Security Defense</span>
           <h1>云飞的安全测试日志</h1>
