@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   base: '/Fyf_blog/',
+  resolve: {
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime'],
+  },
   build: {
     outDir: 'docs',
     emptyOutDir: true,
