@@ -579,7 +579,16 @@ p {
   }
 
   .hero-avatar {
-    display: none;
+    position: relative;
+    left: auto;
+    top: auto;
+    display: block;
+    width: 132px;
+    grid-row: 1;
+    justify-self: center;
+    margin-bottom: 4px;
+    border-radius: 24px;
+    transform: rotate(-2deg);
   }
 
   .hero-visual {
@@ -637,8 +646,15 @@ p {
   }
 
   .hero-section {
-    padding-top: 44px;
-    gap: 20px;
+    padding-top: 34px;
+    gap: 18px;
+  }
+
+  .hero-avatar {
+    width: 112px;
+    border-width: 3px;
+    border-radius: 22px;
+    box-shadow: 0 12px 28px rgba(114, 93, 66, 0.16);
   }
 
   .hero-copy h1,
