@@ -340,6 +340,18 @@ p {
   background: #f1ead3;
 }
 
+.tag-button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tag-button:hover,
+.tag-active {
+  color: #fff;
+  background: #3d8f78;
+}
+
 .post-card-more {
   margin-top: auto;
   display: inline-flex;
@@ -410,6 +422,55 @@ p {
 .post-list {
   display: grid;
   gap: 18px;
+}
+
+.archive-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: #725d42;
+  font-weight: 900;
+}
+
+.archive-summary span {
+  color: #3d8f78;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.pagination-button {
+  min-width: 44px;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  color: #725d42;
+  background: rgba(255, 249, 230, 0.88);
+  box-shadow: inset 0 -3px 0 rgba(114, 93, 66, 0.18);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pagination-button:hover:not(:disabled),
+.pagination-button-primary {
+  color: #fff;
+  background: #e59266;
+}
+
+.pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
 }
 
 .article-page {
@@ -685,6 +746,20 @@ p {
   .hero-actions a,
   .hero-actions button {
     width: 100%;
+  }
+
+  .archive-summary {
+    display: grid;
+    gap: 6px;
+  }
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .pagination-button {
+    min-width: 38px;
+    padding-inline: 11px;
   }
 
   .hero-visual {

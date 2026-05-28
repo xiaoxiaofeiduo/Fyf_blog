@@ -25,7 +25,7 @@ https://xiaoxiaofeiduo.github.io/Fyf_blog/
 ├── docs/                  # 编译后的 GitHub Pages 发布产物，需要提交
 ├── public/                # 静态资源，例如头像 avatar.jpg
 ├── src/
-│   ├── content/posts/     # 博客 Markdown 文章
+│   ├── content/posts/     # 博客 Markdown 文章，按一级目录分类
 │   ├── lib/posts.ts       # 文章扫描、frontmatter 解析、排序逻辑
 │   ├── lib/markdown.tsx   # Markdown 渲染逻辑
 │   ├── pages/             # 页面组件
@@ -71,20 +71,29 @@ npm run preview
 src/content/posts/
 ```
 
-支持两种方式。
+当前使用三个一级分类目录。一级目录名称会直接作为文章页的过滤标签：
+
+```text
+src/content/posts/
+├── 安全研究/
+├── AI 实践/
+└── 系统运维/
+```
+
+新增文章时，先选择对应分类目录，再放入 Markdown 文件或文件夹式文章。
 
 ### 单文件文章
 
 直接新增 Markdown：
 
 ```text
-src/content/posts/my-new-post.md
+src/content/posts/系统运维/my-new-post.md
 ```
 
 访问路径会是：
 
 ```text
-#/posts/my-new-post
+#/posts/系统运维-my-new-post
 ```
 
 ### 文件夹式文章
@@ -92,7 +101,7 @@ src/content/posts/my-new-post.md
 适合文章带图片资源的情况：
 
 ```text
-src/content/posts/my-topic/
+src/content/posts/AI 实践/my-topic/
 ├── index.md
 ├── image.png
 └── demo.jpg
@@ -101,19 +110,19 @@ src/content/posts/my-topic/
 访问路径会是：
 
 ```text
-#/posts/my-topic
+#/posts/AI-实践-my-topic
 ```
 
 目前 `index.md`、`README.md`、`分享.md` 会使用所在文件夹名作为文章 slug。例如：
 
 ```text
-src/content/posts/skills_experience/分享.md
+src/content/posts/AI 实践/skills_experience/分享.md
 ```
 
 访问路径是：
 
 ```text
-#/posts/skills_experience
+#/posts/AI-实践-skills_experience
 ```
 
 ## 文章 Frontmatter
@@ -145,6 +154,8 @@ featured: true
 - `cover`：文章卡片配色标识
 - `readingTime`：阅读时间
 - `featured`：是否展示在首页精选文章中，`true` 或 `false`
+
+文章所属的一级目录会自动加入标签列表，不需要在 `tags` 中重复填写 `安全研究`、`AI 实践` 或 `系统运维`。
 
 如果没有配置 `title`，系统会读取正文第一个一级标题。如果没有配置 `summary`，系统会读取正文中第一行有效文本。
 
@@ -197,4 +208,3 @@ Folder: /docs
 - `docs/index.html` 是否引用最新的 `docs/assets/index-*.js`
 - 是否把 `docs/` 一起提交到了 `main`
 - 浏览器控制台是否有 JavaScript 运行时报错
-

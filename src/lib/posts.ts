@@ -1,6 +1,7 @@
 export interface BlogPost {
   slug: string;
   sourcePath: string;
+  category: string | null;
   title: string;
   date: string;
   summary: string;
@@ -14,7 +15,18 @@ export interface BlogPost {
 interface PostSource {
   slug: string;
   sourcePath: string;
+  category: string | null;
   raw: string;
+}
+
+const contentRoot = '../content/posts/';
+
+function normalizeSlugPart(part: string) {
+  return part.trim().replace(/\s+/g, '-');
+}
+
+function uniqueTags(tags: Array<string | null | undefined>) {
+  return Array.from(new Set(tags.filter((tag): tag is string => Boolean(tag))));
 }
 
 const postModules = import.meta.glob('../content/posts/**/*.md', {
@@ -34,12 +46,27 @@ const sources: PostSource[] = Object.entries(postModules).map(([path, raw]) => {
   const filename = parts.pop() ?? '';
   const folder = parts.pop();
   const fileSlug = filename.replace(/\.md$/, '');
+  const relativePath = path.startsWith(contentRoot)
+    ? path.slice(contentRoot.length).replace(/\.md$/, '')
+    : fileSlug;
+  const relativeParts = relativePath.split('/');
+  const [categoryDir] = relativeParts;
+  const category = relativePath.includes('/') ? categoryDir : null;
+  const slugParts = category && (fileSlug === 'index' || fileSlug === 'README' || fileSlug === '分享')
+    ? relativeParts.slice(0, -1)
+    : relativeParts;
+  const pathSlug = category
+    ? slugParts
+      .map(normalizeSlugPart)
+      .join('-')
+    : undefined;
 
   return {
-    slug: fileSlug === 'index' || fileSlug === 'README' || fileSlug === '分享'
+    slug: pathSlug ?? (fileSlug === 'index' || fileSlug === 'README' || fileSlug === '分享'
       ? folder ?? fileSlug
-      : fileSlug,
+      : fileSlug),
     sourcePath: path,
+    category,
     raw,
   };
 });
@@ -92,16 +119,17 @@ function readSummaryFromBody(body: string) {
 }
 
 export const posts: BlogPost[] = sources
-  .map(({ slug, sourcePath, raw }) => {
+  .map(({ slug, sourcePath, category, raw }) => {
     const { meta, body } = parseFrontmatter(raw);
 
     return {
       slug,
       sourcePath,
+      category,
       title: meta.get('title') ?? readTitleFromBody(body, slug),
       date: meta.get('date') ?? '2026-01-01',
       summary: meta.get('summary') ?? readSummaryFromBody(body),
-      tags: readTags(meta.get('tags')),
+      tags: uniqueTags([category, ...readTags(meta.get('tags'))]),
       cover: meta.get('cover'),
       readingTime: meta.get('readingTime') ?? '5 分钟',
       featured: readBoolean(meta.get('featured')),
