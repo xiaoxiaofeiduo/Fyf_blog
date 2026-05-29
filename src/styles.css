@@ -807,7 +807,7 @@ p {
 
 .ip-lookup-panel {
   display: grid;
-  gap: 22px;
+  gap: 18px;
   background: rgba(255, 249, 230, 0.94);
   box-shadow: 0 16px 34px rgba(114, 93, 66, 0.13);
 }
@@ -840,10 +840,10 @@ p {
 }
 
 .ip-result-card {
-  min-height: 320px;
+  min-height: 0;
   display: grid;
   align-content: start;
-  gap: 14px;
+  gap: 12px;
   background: rgba(255, 255, 255, 0.42);
 }
 
@@ -873,15 +873,16 @@ p {
 
 .ip-info-list {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
   margin: 0;
 }
 
 .ip-info-list div {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 12px;
-  padding-bottom: 10px;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid rgba(114, 93, 66, 0.12);
 }
 
@@ -917,17 +918,6 @@ p {
 .ip-result-card-error {
   min-height: 180px;
   align-content: center;
-}
-
-.ip-powered-by {
-  width: fit-content;
-  justify-self: end;
-  color: #3d8f78;
-  font-size: 13px;
-  font-weight: 900;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
 }
 
 .about-method-section {
@@ -1266,8 +1256,8 @@ p {
     gap: 4px;
   }
 
-  .ip-powered-by {
-    justify-self: start;
+  .ip-info-list {
+    grid-template-columns: 1fr;
   }
 
   .section-block,

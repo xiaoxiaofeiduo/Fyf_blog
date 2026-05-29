@@ -5,15 +5,21 @@ interface IpInfo {
   ip?: string;
   country?: string;
   country_code?: string;
+  continent_code?: string;
+  province?: string;
   region?: string;
   city?: string;
+  district?: string;
   isp?: string;
-  asn?: string;
   organization?: string;
   asn_organization?: string;
+  asn?: string | number;
   timezone?: string;
+  offset?: number;
   latitude?: number;
   longitude?: number;
+  adcode?: string;
+  rawLocation?: string;
 }
 
 interface IpLookupState {
@@ -69,8 +75,8 @@ const timeline = [
 ];
 
 const ipEndpoints = {
-  ipv4: 'https://ipv4-ip.api.skk.moe/v1/home',
-  ipv6: 'https://ipv6-ip.api.skk.moe/v1/home',
+  ipv4: 'https://api-ipv4.ip.sb/geoip',
+  ipv6: 'https://api-ipv6.ip.sb/geoip',
 };
 
 const emptyIpState: IpLookupState = {
@@ -87,7 +93,7 @@ function displayValue(value: string | number | null | undefined) {
 }
 
 function locationText(info: IpInfo) {
-  return [info.country, info.region, info.city].filter(Boolean).join(' / ') || '--';
+  return [info.country, info.region ?? info.province, info.city, info.district].filter(Boolean).join(' / ') || info.rawLocation || '--';
 }
 
 function coordinatesText(info: IpInfo) {
@@ -119,7 +125,7 @@ function IpInfoCard({
     return (
       <Card className="ip-result-card ip-result-card-error">
         <strong>{title}</strong>
-        <p>{error ?? `${title} 暂不可用`}</p>
+        <p>{error ?? 'IP 信息暂不可用'}</p>
       </Card>
     );
   }
@@ -128,7 +134,7 @@ function IpInfoCard({
     <Card className="ip-result-card">
       <div className="ip-result-header">
         <strong>{title}</strong>
-        <span>{displayValue(info.country_code)}</span>
+        <span>{displayValue(info.country_code ?? info.continent_code)}</span>
       </div>
       <dl className="ip-info-list">
         <div>
@@ -140,8 +146,20 @@ function IpInfoCard({
           <dd>{locationText(info)}</dd>
         </div>
         <div>
-          <dt>ISP</dt>
-          <dd>{displayValue(info.isp)}</dd>
+          <dt>运营商</dt>
+          <dd>{displayValue(info.isp ?? info.organization ?? info.asn_organization)}</dd>
+        </div>
+        <div>
+          <dt>国家</dt>
+          <dd>{displayValue(info.country)}</dd>
+        </div>
+        <div>
+          <dt>地区</dt>
+          <dd>{displayValue(info.region ?? info.province)}</dd>
+        </div>
+        <div>
+          <dt>城市</dt>
+          <dd>{displayValue(info.city)}</dd>
         </div>
         <div>
           <dt>ASN</dt>
@@ -186,8 +204,8 @@ export function AboutPage() {
       loading: false,
       ipv4: ipv4Result.status === 'fulfilled' ? ipv4Result.value : null,
       ipv6: ipv6Result.status === 'fulfilled' ? ipv6Result.value : null,
-      ipv4Error: ipv4Result.status === 'rejected' ? 'IPv4 暂不可用，请打开 ip.skk.moe 查看完整检测。' : null,
-      ipv6Error: ipv6Result.status === 'rejected' ? 'IPv6 暂不可用，请打开 ip.skk.moe 查看完整检测。' : null,
+      ipv4Error: ipv4Result.status === 'rejected' ? 'IPv4 信息暂不可用，请稍后重新检测。' : null,
+      ipv6Error: ipv6Result.status === 'rejected' ? 'IPv6 信息暂不可用，请确认当前网络支持 IPv6。' : null,
     });
   };
 
@@ -276,11 +294,7 @@ export function AboutPage() {
           <div className="ip-lookup-heading">
             <div>
               <span className="eyebrow">IP Lookup</span>
-              <h2>网络出口检测</h2>
-              <p>
-                自动检测当前访问网络的 IPv4 / IPv6 出口信息，适合排查分流、代理、运营商和网络环境差异。
-                如果浏览器限制跨域读取，可以通过下方来源链接打开完整检测页。
-              </p>
+              <h2>IP地址</h2>
             </div>
             <Button type="primary" onClick={() => void fetchIpInfo()} loading={ipState.loading}>
               重新检测
@@ -301,15 +315,6 @@ export function AboutPage() {
               loading={ipState.loading}
             />
           </div>
-
-          <a
-            className="ip-powered-by"
-            href="https://ip.skk.moe/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Powered by ip.skk.moe
-          </a>
         </Card>
       </section>
     </section>
