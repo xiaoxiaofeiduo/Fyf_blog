@@ -21,7 +21,7 @@ export function App() {
           </span>
           <span>
             <strong>云飞</strong>
-            <small>安全测试日志</small>
+            <small>测试日志</small>
           </span>
         </NavLink>
 

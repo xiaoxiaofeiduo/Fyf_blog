@@ -41,7 +41,7 @@ export function HomePage() {
 
         <div className="hero-copy">
           <span className="eyebrow">Software Test Engineer / Security Defense</span>
-          <h1>云飞的安全测试日志</h1>
+          <h1>云飞的测试日志</h1>
           <div className="hero-type">
             <Typewriter speed={70}>记录 Web 应用安全防护、大模型安全防护与测试工程实践。</Typewriter>
           </div>
