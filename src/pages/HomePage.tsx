@@ -33,6 +33,8 @@ const focusTabs = [
   },
 ];
 
+const heroHighlights = ['安全测试', '大模型安全', '系统运维', '测试工程'];
+
 export function HomePage() {
   return (
     <>
@@ -49,6 +51,11 @@ export function HomePage() {
             一个面向安全测试与防护实践的个人博客，用轻松的岛屿界面承载严肃的安全工程思考。
             这里会持续整理 Web 攻防验证、大模型安全测试、风险评估和质量防护体系。
           </p>
+          <div className="hero-highlights" aria-label="博客关注方向">
+            {heroHighlights.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
           <div className="hero-actions">
             <Link to="/posts">
               <Button type="primary" size="large">阅读文章</Button>
@@ -70,6 +77,7 @@ export function HomePage() {
         <div className="section-heading">
           <span className="eyebrow">Featured Posts</span>
           <h2>近期精选</h2>
+          <p>把最近沉淀的排查过程、部署经验和安全验证方法整理成可复用的测试笔记。</p>
         </div>
         <div className="post-grid">
           {featuredPosts.map((post) => (
@@ -83,6 +91,7 @@ export function HomePage() {
           <div className="section-heading">
             <span className="eyebrow">Topics</span>
             <h2>写作主题</h2>
+            <p>围绕真实项目里的测试问题展开，记录从发现风险到验证防护的完整思路。</p>
           </div>
           <Tabs items={focusTabs} defaultActiveKey="web-security" />
         </Card>
@@ -103,6 +112,19 @@ export function HomePage() {
             <strong>安全沉淀</strong>
             <span>用 Markdown 维护长期知识库</span>
           </Card>
+        </div>
+      </section>
+
+      <section className="section-block journey-strip">
+        <div>
+          <span className="eyebrow">Workflow</span>
+          <h2>从问题到笔记</h2>
+        </div>
+        <div className="journey-steps">
+          <span>定位现象</span>
+          <span>复现实验</span>
+          <span>验证防护</span>
+          <span>沉淀方法</span>
         </div>
       </section>
     </>

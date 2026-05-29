@@ -56,11 +56,14 @@ export function PostsPage() {
       <div className="page-title">
         <span className="eyebrow">Archive</span>
         <h1>文章</h1>
-        <p>按时间整理的安全测试与防护实践记录，所有文章都来自本地 Markdown 文件。</p>
+        <p>按时间整理安全测试、防护验证、系统运维和大模型实践记录。用标签快速筛选主题，用文章复盘真实问题。</p>
       </div>
 
       <Card className="tag-panel">
-        <strong>主题标签</strong>
+        <div className="tag-panel-title">
+          <strong>主题标签</strong>
+          <span>选择一个方向继续阅读</span>
+        </div>
         <div className="tag-row">
           <button
             className={`tag tag-button ${selectedTag ? '' : 'tag-active'}`}

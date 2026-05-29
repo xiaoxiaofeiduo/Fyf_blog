@@ -11,6 +11,7 @@ export function PostCard({ post, compact = false }: PostCardProps) {
   return (
     <Link to={`/posts/${post.slug}`} className="post-card-link">
       <Card className={`post-card ${compact ? 'post-card-compact' : ''}`} color={post.cover as never}>
+        {post.category && <span className="post-card-category">{post.category}</span>}
         <div className="post-card-topline">
           <time
             className="post-published-at"
