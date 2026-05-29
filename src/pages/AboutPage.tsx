@@ -1,4 +1,28 @@
-import { Card, Collapse, Divider, Icon } from 'animal-island-ui';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Card, Collapse, Divider, Icon } from 'animal-island-ui';
+
+interface IpInfo {
+  ip?: string;
+  country?: string;
+  country_code?: string;
+  region?: string;
+  city?: string;
+  isp?: string;
+  asn?: string;
+  organization?: string;
+  asn_organization?: string;
+  timezone?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
+interface IpLookupState {
+  loading: boolean;
+  ipv4: IpInfo | null;
+  ipv6: IpInfo | null;
+  ipv4Error: string | null;
+  ipv6Error: string | null;
+}
 
 const focusAreas = [
   {
@@ -44,7 +68,135 @@ const timeline = [
   },
 ];
 
+const ipEndpoints = {
+  ipv4: 'https://ipv4-ip.api.skk.moe/v1/home',
+  ipv6: 'https://ipv6-ip.api.skk.moe/v1/home',
+};
+
+const emptyIpState: IpLookupState = {
+  loading: true,
+  ipv4: null,
+  ipv6: null,
+  ipv4Error: null,
+  ipv6Error: null,
+};
+
+function displayValue(value: string | number | null | undefined) {
+  if (value === null || value === undefined || value === '') return '--';
+  return String(value);
+}
+
+function locationText(info: IpInfo) {
+  return [info.country, info.region, info.city].filter(Boolean).join(' / ') || '--';
+}
+
+function coordinatesText(info: IpInfo) {
+  if (info.latitude === undefined || info.longitude === undefined) return '--';
+  return `${info.latitude}, ${info.longitude}`;
+}
+
+function IpInfoCard({
+  title,
+  info,
+  error,
+  loading,
+}: {
+  title: string;
+  info: IpInfo | null;
+  error: string | null;
+  loading: boolean;
+}) {
+  if (loading) {
+    return (
+      <Card className="ip-result-card">
+        <strong>{title}</strong>
+        <p className="ip-loading">正在检测网络出口...</p>
+      </Card>
+    );
+  }
+
+  if (error || !info) {
+    return (
+      <Card className="ip-result-card ip-result-card-error">
+        <strong>{title}</strong>
+        <p>{error ?? `${title} 暂不可用`}</p>
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="ip-result-card">
+      <div className="ip-result-header">
+        <strong>{title}</strong>
+        <span>{displayValue(info.country_code)}</span>
+      </div>
+      <dl className="ip-info-list">
+        <div>
+          <dt>IP</dt>
+          <dd>{displayValue(info.ip)}</dd>
+        </div>
+        <div>
+          <dt>位置</dt>
+          <dd>{locationText(info)}</dd>
+        </div>
+        <div>
+          <dt>ISP</dt>
+          <dd>{displayValue(info.isp)}</dd>
+        </div>
+        <div>
+          <dt>ASN</dt>
+          <dd>{displayValue(info.asn)}</dd>
+        </div>
+        <div>
+          <dt>组织</dt>
+          <dd>{displayValue(info.organization ?? info.asn_organization)}</dd>
+        </div>
+        <div>
+          <dt>时区</dt>
+          <dd>{displayValue(info.timezone)}</dd>
+        </div>
+        <div>
+          <dt>经纬度</dt>
+          <dd>{coordinatesText(info)}</dd>
+        </div>
+      </dl>
+    </Card>
+  );
+}
+
 export function AboutPage() {
+  const [ipState, setIpState] = useState<IpLookupState>(emptyIpState);
+  const didFetchIpRef = useRef(false);
+
+  const fetchIpInfo = async () => {
+    setIpState(emptyIpState);
+
+    const [ipv4Result, ipv6Result] = await Promise.allSettled([
+      fetch(ipEndpoints.ipv4).then((response) => {
+        if (!response.ok) throw new Error(`IPv4 查询失败：${response.status}`);
+        return response.json() as Promise<IpInfo>;
+      }),
+      fetch(ipEndpoints.ipv6).then((response) => {
+        if (!response.ok) throw new Error(`IPv6 查询失败：${response.status}`);
+        return response.json() as Promise<IpInfo>;
+      }),
+    ]);
+
+    setIpState({
+      loading: false,
+      ipv4: ipv4Result.status === 'fulfilled' ? ipv4Result.value : null,
+      ipv6: ipv6Result.status === 'fulfilled' ? ipv6Result.value : null,
+      ipv4Error: ipv4Result.status === 'rejected' ? 'IPv4 暂不可用，请打开 ip.skk.moe 查看完整检测。' : null,
+      ipv6Error: ipv6Result.status === 'rejected' ? 'IPv6 暂不可用，请打开 ip.skk.moe 查看完整检测。' : null,
+    });
+  };
+
+  useEffect(() => {
+    if (didFetchIpRef.current) return;
+    didFetchIpRef.current = true;
+    void fetchIpInfo();
+  }, []);
+
   return (
     <section className="page-section about-layout">
       <div className="about-hero">
@@ -118,6 +270,48 @@ export function AboutPage() {
           answer="可以在 src/content/posts 下新增单个 Markdown，也可以新建一个文件夹，在文件夹内放 Markdown 和图片资源。"
         />
       </div>
+
+      <section className="ip-lookup-section">
+        <Card className="ip-lookup-panel">
+          <div className="ip-lookup-heading">
+            <div>
+              <span className="eyebrow">IP Lookup</span>
+              <h2>网络出口检测</h2>
+              <p>
+                自动检测当前访问网络的 IPv4 / IPv6 出口信息，适合排查分流、代理、运营商和网络环境差异。
+                如果浏览器限制跨域读取，可以通过下方来源链接打开完整检测页。
+              </p>
+            </div>
+            <Button type="primary" onClick={() => void fetchIpInfo()} loading={ipState.loading}>
+              重新检测
+            </Button>
+          </div>
+
+          <div className="ip-result-grid">
+            <IpInfoCard
+              title="IPv4"
+              info={ipState.ipv4}
+              error={ipState.ipv4Error}
+              loading={ipState.loading}
+            />
+            <IpInfoCard
+              title="IPv6"
+              info={ipState.ipv6}
+              error={ipState.ipv6Error}
+              loading={ipState.loading}
+            />
+          </div>
+
+          <a
+            className="ip-powered-by"
+            href="https://ip.skk.moe/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Powered by ip.skk.moe
+          </a>
+        </Card>
+      </section>
     </section>
   );
 }

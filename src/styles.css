@@ -801,6 +801,135 @@ p {
   line-height: 1.85;
 }
 
+.ip-lookup-section {
+  margin-top: 24px;
+}
+
+.ip-lookup-panel {
+  display: grid;
+  gap: 22px;
+  background: rgba(255, 249, 230, 0.94);
+  box-shadow: 0 16px 34px rgba(114, 93, 66, 0.13);
+}
+
+.ip-lookup-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.ip-lookup-heading h2 {
+  margin: 14px 0 10px;
+  font-size: 34px;
+  line-height: 1.15;
+}
+
+.ip-lookup-heading p {
+  max-width: 720px;
+  margin: 0;
+  color: #755f44;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.ip-result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ip-result-card {
+  min-height: 320px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.ip-result-card > strong,
+.ip-result-header strong {
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+.ip-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ip-result-header span {
+  min-width: 38px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: #3d8f78;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ip-info-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.ip-info-list div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(114, 93, 66, 0.12);
+}
+
+.ip-info-list div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ip-info-list dt {
+  color: #8a7b66;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ip-info-list dd {
+  min-width: 0;
+  margin: 0;
+  color: #5f4c36;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.ip-loading,
+.ip-result-card-error p {
+  margin: 0;
+  color: #755f44;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.ip-result-card-error {
+  min-height: 180px;
+  align-content: center;
+}
+
+.ip-powered-by {
+  width: fit-content;
+  justify-self: end;
+  color: #3d8f78;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 .about-method-section {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -975,7 +1104,8 @@ p {
   .focus-section,
   .about-grid,
   .about-hero,
-  .about-method-section {
+  .about-method-section,
+  .ip-result-grid {
     grid-template-columns: 1fr;
   }
 
@@ -995,6 +1125,10 @@ p {
 
   .journey-steps {
     justify-content: flex-start;
+  }
+
+  .ip-lookup-heading {
+    display: grid;
   }
 }
 
@@ -1122,8 +1256,18 @@ p {
   }
 
   .journey-strip h2,
-  .about-method-card h2 {
+  .about-method-card h2,
+  .ip-lookup-heading h2 {
     font-size: 28px;
+  }
+
+  .ip-info-list div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .ip-powered-by {
+    justify-self: start;
   }
 
   .section-block,
