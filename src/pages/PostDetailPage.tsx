@@ -3,6 +3,34 @@ import { Button, Card, Divider } from 'animal-island-ui';
 import { formatDate, getPostBySlug, postAssetMap } from '../lib/posts';
 import { renderMarkdown } from '../lib/markdown';
 
+function decodeAssetUrl(url: string) {
+  try {
+    return decodeURIComponent(url);
+  } catch {
+    return url;
+  }
+}
+
+function joinAssetPath(basePath: string, relativePath: string) {
+  const parts = [...basePath.split('/'), ...relativePath.split('/')];
+  const normalized: string[] = [];
+
+  parts.forEach((part) => {
+    if (!part || part === '.') return;
+    if (part === '..') {
+      if (normalized.length && normalized[normalized.length - 1] !== '..') {
+        normalized.pop();
+      } else {
+        normalized.push(part);
+      }
+      return;
+    }
+    normalized.push(part);
+  });
+
+  return normalized.join('/');
+}
+
 export function PostDetailPage() {
   const { slug } = useParams();
   const post = getPostBySlug(slug);
@@ -24,8 +52,8 @@ export function PostDetailPage() {
   const postDir = post.sourcePath.slice(0, post.sourcePath.lastIndexOf('/'));
   const resolvePostAsset = (url: string) => {
     if (/^(https?:|data:|\/)/.test(url)) return url;
-    const normalized = url.replace(/^\.\//, '');
-    return postAssetMap[`${postDir}/${normalized}`];
+    const normalized = decodeAssetUrl(url).replace(/^\.\//, '');
+    return postAssetMap[joinAssetPath(postDir, normalized)];
   };
 
   return (

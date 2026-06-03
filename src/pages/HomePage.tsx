@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button, Card, Divider, Phone, Tabs, Typewriter, Icon } from 'animal-island-ui';
 import { PostCard } from '../components/PostCard';
-import { featuredPosts } from '../lib/posts';
+import { posts } from '../lib/posts';
 
 const focusTabs = [
   {
@@ -34,6 +34,7 @@ const focusTabs = [
 ];
 
 const heroHighlights = ['安全测试', '大模型安全', '系统运维', '测试工程'];
+const latestPosts = posts.slice(0, 3);
 
 export function HomePage() {
   return (
@@ -76,11 +77,11 @@ export function HomePage() {
       <section className="section-block">
         <div className="section-heading">
           <span className="eyebrow">Featured Posts</span>
-          <h2>近期精选</h2>
-          <p>把最近沉淀的排查过程、部署经验和安全验证方法整理成可复用的测试笔记。</p>
+          <h2>近期分享</h2>
+          <p>按发布时间展示最新整理的排查过程、部署经验和安全验证方法。</p>
         </div>
         <div className="post-grid">
-          {featuredPosts.map((post) => (
+          {latestPosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>
