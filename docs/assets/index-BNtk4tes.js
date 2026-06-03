@@ -3770,7 +3770,17 @@ IyAvZXRjL2ZzdGFiOiBzdGF0aWMgZmlsZSBzeXN0ZW0gaW5mb3JtYXRpb24uDQojDQojIDxmaWxlIHN5
 
 * 远程代码执行（RCE）：在极少数情况下，例如，当使用 PHP/expect 包装器时，可以通过 XXE 执行远程代码。
 
-`,o_=`# 使用 BPS 进行性能测试：并发、吞吐与新建连接
+`,o_=`---
+title: 使用 BPS 进行性能测试：并发、吞吐与新建连接
+date: 2026-06-03
+summary: 以 BPS 典型配置为例，梳理并发、吞吐和新建连接三类性能测试的目标、关键参数、Super Flow 设计、Load Profile 与结果观察重点。
+tags: BPS, 性能测试, 并发测试, 吞吐测试, 新建连接
+cover: app-green
+readingTime: 12 分钟
+featured: false
+---
+
+# 使用 BPS 进行性能测试：并发、吞吐与新建连接
 
 在网络设备、WAF、负载均衡或安全网关的性能验证中，单看一个“性能值”很容易误判设备能力。BPS 的优势在于可以把应用流量、网络端点、TCP 参数和负载曲线组合起来，分别验证不同维度的瓶颈。
 
