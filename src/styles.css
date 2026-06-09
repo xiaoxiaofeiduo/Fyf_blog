@@ -143,9 +143,9 @@ input {
 }
 
 .github-star-wrap {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
 }
 
 .github-star-btn {
@@ -190,10 +190,36 @@ input {
 }
 
 .github-star-hint {
-  color: #8a7b66;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: #fff9e6;
+  background: #5f4c36;
   font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 30;
+}
+
+.github-star-hint::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #5f4c36;
+}
+
+.github-star-wrap:hover .github-star-hint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(10px);
 }
 
 .hero-section,
