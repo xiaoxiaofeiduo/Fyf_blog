@@ -1,6 +1,7 @@
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import { Button, Footer, Icon } from 'animal-island-ui';
 import { AboutPage } from './pages/AboutPage';
+import { GitHubStar } from './components/GitHubStar';
 import { HomePage } from './pages/HomePage';
 import { PostDetailPage } from './pages/PostDetailPage';
 import { PostsPage } from './pages/PostsPage';
@@ -39,6 +40,8 @@ export function App() {
             </NavLink>
           ))}
         </nav>
+
+        <GitHubStar />
 
         <Link className="header-action" to="/posts">
           <Button type="primary" size="small">开始阅读</Button>
