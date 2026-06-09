@@ -142,6 +142,12 @@ input {
   display: inline-flex;
 }
 
+.github-star-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .github-star-btn {
   display: inline-flex;
   align-items: center;
@@ -154,6 +160,7 @@ input {
   box-shadow: inset 0 -3px 0 rgba(114, 93, 66, 0.12);
   font-size: 13px;
   font-weight: 900;
+  white-space: nowrap;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
@@ -180,6 +187,13 @@ input {
   font-size: 11px;
   font-weight: 900;
   margin-left: 2px;
+}
+
+.github-star-hint {
+  color: #8a7b66;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .hero-section,
@@ -1194,7 +1208,7 @@ p {
 
   .brand small,
   .header-action,
-  .github-star-btn {
+  .github-star-wrap {
     display: none;
   }
 
