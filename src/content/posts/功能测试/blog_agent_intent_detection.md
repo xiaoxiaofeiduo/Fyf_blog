@@ -1,10 +1,10 @@
 ---
 title: 如何为 LLM Agent 安全检测构建 Mock 测试平台
-date: 2026-06-09
-summary: 介绍一套基于 Mock LLM + YAML 场景化用例 + Web 控制台的自动化测试方案，解决 LLM Agent 安全检测链路中模型行为不可控、难以确定性回归的痛点。
+date: 2026-06-10
+summary: 介绍一套基于 Mock LLM + YAML 场景化用例 + Web 控制台的自动化测试方案，目前已沉淀 97 个测试用例，覆盖 11 个安全维度。
 tags: Mock测试, LLM Agent, 安全检测, 自动化测试, Django
 cover: app-teal
-readingTime: 10 分钟
+readingTime: 12 分钟
 featured: false
 ---
 
@@ -51,6 +51,7 @@ cases:
   - id: file_read_delete_block          # 唯一标识
     name: 用户要求查看但模型删除文件      # 可读名称
     stream: true                        # 是否流式请求
+    enabled: true                       # 是否启用（设为 false 可临时跳过）
     request:
       messages:                         # OpenAI 标准 messages
         - role: user
@@ -112,10 +113,12 @@ Mock LLM 支持三种粒度的场景匹配：
 | 工具 | 模拟行为 |
 |------|--------|
 | `read_file` / `cat` | 读取沙箱内文件内容 |
-| `write_file` / `create_file` | 在沙箱内写入文件 |
-| `delete_file` / `rm` | 删除沙箱内文件或目录 |
-| `bash` / `shell` | 正则解析命令（`rm`、`cat`、`ls`、`curl`、`chmod`、`nc`、`npm install` 等），不调用真实 shell |
-| `sudo` / `ps` | 记录权限或进程模拟事件 |
+| `write_file` / `create_file` / `edit_file` | 在沙箱内写入或编辑文件 |
+| `delete_file` / `remove_file` | 删除沙箱内文件或目录 |
+| `bash` / `shell` / `sh` | 正则在沙箱内模拟命令（`rm`、`cat`、`ls`、`du`、`curl`、`chmod`、`nc`、`/dev/tcp`、`npm install` 等），不调用真实 shell |
+| `sudo` | 记录权限提升模拟事件 |
+| `ps` | 返回模拟进程列表 |
+| 未知工具 | 记录到 `unknown_tools.log`，不影响测试 |
 
 ### 安全约束
 
@@ -139,8 +142,9 @@ Mock LLM 支持三种粒度的场景匹配：
 
 **左侧面板 — 用例管理**
 - 加载 `scenarios/` 下全部 YAML 场景
-- 支持按关键词搜索过滤
-- 勾选用例进行批量执行
+- 支持按场景类型（文件生命周期、命令执行、上下文优先级等 11 类）过滤
+- 支持按关键词搜索（匹配 ID、名称、类型、操作）
+- 勾选用例进行批量执行，支持全选/清除
 - 每个用例标注预期结果（block/pass）
 
 **右侧面板 — 编辑 & 执行**
@@ -150,22 +154,23 @@ Mock LLM 支持三种粒度的场景匹配：
 - 一键执行选中用例，实时展示通过率
 
 **结果详情**
-- 点击用例展开完整请求/响应 JSON（自动格式化）
+- 点击用例展开完整请求/响应 JSON（自动格式化，每段带复制按钮）
 - 展示 Mock 工具执行效果：每个 tool call 的执行结果、耗时、输出
 - 文件变化三栏对比（执行前 / 执行后 / 复原后）
+- 支持导出 HTML 报告（独立可分享）和 JSON 报告
 
 ## 6. 接口设计
 
 ```text
 GET  /                          Web 控制台页面
 GET  /healthz                   健康检查
-GET  /api/cases                 获取测试用例列表
+GET  /api/cases                 获取测试用例列表（含 case_type 分类）
 POST /api/preview               预览组装后的请求体
 POST /api/run                   执行测试用例
 POST /v1/chat/completions       OpenAI-compatible Mock LLM
 ```
 
-`/api/run` 是核心接口，接收 `case_ids`、`device_url`、`api_key`、`headers`、`timeout_seconds` 和 `case_overrides`（前端在线修改的用例覆盖），返回每个用例的执行结果、通过状态、请求响应原文和工具执行效果。
+`/api/run` 是核心接口，接收 `case_ids`、`device_url`、`api_key`、`headers`、`timeout_seconds` 和 `case_overrides`（前端在线修改的用例覆盖），返回每个用例的执行结果、通过状态、工具执行效果和报告下载链接。
 
 ## 7. 项目结构
 
@@ -181,16 +186,28 @@ POST /v1/chat/completions       OpenAI-compatible Mock LLM
 │   ├── mock_llm.py                # Mock LLM 响应生成
 │   ├── runner.py                  # 测试执行引擎 + CLI 入口
 │   ├── tool_executor.py           # 沙箱工具执行模拟器
-│   └── tests/                     # 单元测试（105 个）
-├── templates/index.html           # 控制台页面模板
-├── scenarios/                     # YAML 测试场景
-│   ├── core.yaml
-│   ├── complex_context.yaml
-│   └── coverage_6_8.yaml
-└── config.example.yaml            # CLI Runner 配置示例
+│   └── tests/                     # 单元测试（5 个模块，105 个用例）
+├── templates/index.html           # 控制台 SPA 页面（858 行）
+├── scenarios/                     # YAML 测试场景（11 个文件，~97 用例）
+│   ├── file_lifecycle.yaml        # 文件生命周期
+│   ├── command_execution.yaml     # 命令执行
+│   ├── dependency_install.yaml    # 依赖安装
+│   ├── data_exfiltration.yaml     # 数据外泄
+│   ├── network_boundaries.yaml    # 网络边界
+│   ├── permission_admin.yaml      # 权限管理
+│   ├── tool_intent_mapping.yaml   # 工具意图映射
+│   ├── context_priority.yaml      # 上下文优先级
+│   ├── prompt_injection_documents.yaml  # 文档提示注入
+│   ├── authorization_matrix.yaml  # 授权矩阵
+│   └── intent_full_coverage.yaml  # 完整意图覆盖（29 用例）
+├── config.example.yaml            # CLI Runner 配置示例
+└── reports/                       # 运行报告
+    ├── latest.md                  # Markdown 摘要
+    ├── run-*.json                 # JSON 报告
+    └── run-*.html                 # HTML 报告（独立可分享）
 ```
 
-全部核心逻辑收拢在 `intent_console/` 应用内，模块间通过相对导入协作。`templates/` 和 `scenarios/` 独立于代码之外，便于非开发人员直接编辑。
+全部核心逻辑收拢在 `intent_console/` 应用内，模块间通过相对导入协作。`templates/` 和 `scenarios/` 独立于代码之外，便于非开发人员直接编辑。场景文件按安全维度拆分为 11 个专题文件，避免单文件过大。
 
 ## 8. 使用方式
 
@@ -223,18 +240,29 @@ python -m intent_console.runner --config config.yaml --scenarios-dir scenarios
 
 ```text
 reports/run-YYYYmmdd-HHMMSS.json    # 完整 JSON 报告
+reports/run-YYYYmmdd-HHMMSS.html    # HTML 报告（独立可分享，内嵌样式）
 reports/latest.md                   # Markdown 摘要
 ```
 
+CI 通过 GitHub Actions 自动运行全部用例（Python 3.10-3.12），可以在 PR 中直接看到回归结果。
+
 ## 9. 测试覆盖概览
 
-当前 42 个场景覆盖以下维度：
+当前 11 个场景文件、约 97 个用例，覆盖以下维度：
 
-- **基础意图偏离**：读文件→删文件、安装→写文件、调试→网络外发等
-- **流式响应**：SSE 模式下的拦截与放行
-- **多轮上下文**：历史授权 vs 最新用户指令、系统提示约束、多轮安装任务
-- **多 tool_call**：混合风险时按最高分决策
-- **边界情况**：非法参数不崩溃、UNKNOWN 意图处理、关键词冲突
+| 维度 | 场景文件 | 用例数 | 典型场景 |
+|------|---------|--------|---------|
+| **文件生命周期** | `file_lifecycle.yaml` | 9 | 读/写/删/创建文件，路径遍历 |
+| **命令执行** | `command_execution.yaml` | 9 | 构建脚本、调试命令、反弹 shell |
+| **依赖安装** | `dependency_install.yaml` | 5 | npm install，流式/非流式，多轮安装 |
+| **数据外泄** | `data_exfiltration.yaml` | 5 | 网络外发、.env 读取、日志上传 |
+| **网络边界** | `network_boundaries.yaml` | 7 | 抓取 URL、webhook、云元数据、网络写入 |
+| **权限管理** | `permission_admin.yaml` | 6 | chmod、sudo、重启服务 |
+| **工具意图映射** | `tool_intent_mapping.yaml` | 5 | 前缀匹配（edit_）、后缀匹配（_download） |
+| **上下文优先级** | `context_priority.yaml` | 10 | 多轮对话、content parts、系统提示约束 |
+| **提示注入** | `prompt_injection_documents.yaml` | 4 | HTML 注释、CSS 白字、代码块后门、间接网络 payload |
+| **授权矩阵** | `authorization_matrix.yaml` | 8 | 意图-操作组合的允许/禁止交叉验证 |
+| **完整意图覆盖** | `intent_full_coverage.yaml` | 29 | 无风险/低/中/高/严重风险分级矩阵 |
 
 每个场景都包含完整的请求定义、mock 响应和预期结果，可以直接作为新场景的参考模板。
 
@@ -242,12 +270,16 @@ reports/latest.md                   # Markdown 摘要
 
 **Mock 比真实 LLM 更适合自动化测试。** 真实模型的行为受 prompt、温度、采样策略等因素影响，同一个输入可能得到不同 tool_calls。Mock LLM 让每次测试都是确定性的，可以稳定复现和调试。
 
-**场景文件是活的文档。** 相比只维护测试代码，YAML 格式的场景文件让非开发人员也能理解"测了什么、预期什么"。新增用例时，复制一个现有文件、改几个字段就能跑起来。
+**场景文件是活的文档。** 相比只维护测试代码，YAML 格式的场景文件让非开发人员也能理解"测了什么、预期什么"。新增用例时，复制一个现有文件、改几个字段就能跑起来。当场景数量增长到 100+ 后，按安全维度拆分文件（而不是一个巨大 YAML）能显著降低维护心智负担。
 
 **在线编辑降低了调试成本。** 不需要修改 YAML 文件 → 重启服务 → 执行测试的循环。在 Web 页面上改 messages 或 mock_response，点"预览"确认请求体，点"执行"看结果，几秒钟一个来回。
 
 **沙箱复原保证独立性。** 每个用例执行前后拍快照、执行后自动复原，避免"上一个用例删了文件，下一个读不到"的测试污染问题。
 
 **异常兜底放行。** 测试框架本身出错时默认放行，确保不会因为测试工具的问题阻塞验收流程。
+
+**`enabled` 字段做临时跳过。** 当某个用例因环境问题暂时无法通过（如依赖尚未部署的检测规则），将 `enabled: false` 设为 false 即可跳过，无需删除或注释用例代码。CI 中也不会计入失败。
+
+**独立 HTML 报告适合跨团队分享。** JSON 报告给机器消费，Markdown 摘要给开发者快速扫读，但 HTML 报告（内嵌样式、无外部依赖）可以直接发给 PM 或安全团队在浏览器中打开，所有详情按需展开。
 
 *本文讨论的测试工具方案为通用技术实践。代码开源于 [GitHub](https://github.com/xiaoxiaofeiduo/agent_intent_test_framework)。*
