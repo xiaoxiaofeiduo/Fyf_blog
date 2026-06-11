@@ -63,7 +63,7 @@ input {
 }
 
 .site-header {
-  width: min(1120px, calc(100% - 32px));
+  width: min(1360px, calc(100% - 32px));
   height: 72px;
   margin: 18px auto 0;
   padding: 10px 12px;
