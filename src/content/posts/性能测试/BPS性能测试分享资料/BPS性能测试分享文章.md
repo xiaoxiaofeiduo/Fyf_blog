@@ -27,9 +27,9 @@ featured: false
 
 这种设计的好处是，测试脚本不直接绑定具体端口或 IP，而是通过标签选择流量源和流量目标。后续切换拓扑、调整主机池或扩展接口时，不需要重写应用流。
 
-![网络配置-端点](00-网络配置-端点.png)
+![网络配置-端点](00-网络配置-端点.webp)
 
-![网络配置-标签绑定](01-网络配置-标签绑定.png)
+![网络配置-标签绑定](01-网络配置-标签绑定.webp)
 
 截图中的网络参数可以按三层理解：
 
@@ -129,11 +129,11 @@ featured: false
 | TCP Window Scale | `0` | 不放大 TCP 窗口 |
 | Initial Congestion Window | `4` | 保守的拥塞窗口 |
 
-![并发-应用模拟器参数](10-并发-应用模拟器参数.png)
+![并发-应用模拟器参数](10-并发-应用模拟器参数.webp)
 
-![并发-App配置与端口TCP](11-并发-App配置与端口TCP.png)
+![并发-App配置与端口TCP](11-并发-App配置与端口TCP.webp)
 
-![并发-TCP与IP配置](12-并发-TCP与IP配置.png)
+![并发-TCP与IP配置](12-并发-TCP与IP配置.webp)
 
 这些截图中的端口、TCP 和 IP 参数含义如下。吞吐场景与并发/新建场景的主要区别在 `Initial Receive Window`、`TCP Window Scale` 和 `Initial Congestion Window`。
 
@@ -179,9 +179,9 @@ featured: false
 
 这里的关键点是"小响应 + 保持连接"。如果响应体过大，测试会混入吞吐压力；如果连接快速关闭，测试会更接近新建连接能力，而不是并发保持能力。
 
-![并发-SuperFlow请求](13-并发-SuperFlow请求.png)
+![并发-SuperFlow请求](13-并发-SuperFlow请求.webp)
 
-![并发-SuperFlow响应](14-并发-SuperFlow响应.png)
+![并发-SuperFlow响应](14-并发-SuperFlow响应.webp)
 
 并发 Super Flow `test_ruishu` 的请求和响应参数说明如下：
 
@@ -241,9 +241,9 @@ featured: false
 
 曲线表现为：会话数逐步爬升到约 220 万，稳态阶段保持不变，最后按降压时间释放。这个曲线适合观察设备在高并发稳态下是否出现会话丢失、异常关闭、CPU 或内存持续上涨。
 
-![并发-LoadProfile](15-并发-LoadProfile.png)
+![并发-LoadProfile](15-并发-LoadProfile.webp)
 
-![并发-HTTP基础参数](16-并发-HTTP基础参数.png)
+![并发-HTTP基础参数](16-并发-HTTP基础参数.webp)
 
 Load Profile 截图中的曲线和字段含义如下：
 
@@ -306,11 +306,11 @@ Load Profile 截图中的曲线和字段含义如下：
 
 吞吐场景的 TCP 参数明显比并发场景更激进。`65535` 的接收窗口配合 Window Scale `7`，可以支持更大的在途数据量；Initial Congestion Window `16` 也有利于更快拉升带宽。
 
-![吞吐-应用模拟器参数](20-吞吐-应用模拟器参数.png)
+![吞吐-应用模拟器参数](20-吞吐-应用模拟器参数.webp)
 
-![吞吐-App配置与端口TCP](21-吞吐-App配置与端口TCP.png)
+![吞吐-App配置与端口TCP](21-吞吐-App配置与端口TCP.webp)
 
-![吞吐-TCP与IP配置](22-吞吐-TCP与IP配置.png)
+![吞吐-TCP与IP配置](22-吞吐-TCP与IP配置.webp)
 
 ### 3. Super Flow 设计
 
@@ -326,9 +326,9 @@ Load Profile 截图中的曲线和字段含义如下：
 
 这里使用 512 KB 左右的响应体，目的是让每条连接产生足够的数据传输。相比 1 字节响应，它更能模拟下载类、视频类或大对象传输场景，也更容易把设备转发链路压到目标吞吐。
 
-![吞吐-SuperFlow请求](23-吞吐-SuperFlow请求.png)
+![吞吐-SuperFlow请求](23-吞吐-SuperFlow请求.webp)
 
-![吞吐-SuperFlow响应](24-吞吐-SuperFlow响应.png)
+![吞吐-SuperFlow响应](24-吞吐-SuperFlow响应.webp)
 
 吞吐 Super Flow `http flow lower payload` 与并发流的字段大体一致，但以下参数发生了关键变化：
 
@@ -367,9 +367,9 @@ Load Profile 截图中的曲线和字段含义如下：
 
 稳态阶段不是单纯保持连接，而是持续打开和关闭会话，同时维持数据传输。这种模型更接近真实业务里的连续请求，也能观察吞吐在连接变化下是否稳定。
 
-![吞吐-LoadProfile](25-吞吐-LoadProfile.png)
+![吞吐-LoadProfile](25-吞吐-LoadProfile.webp)
 
-![吞吐-HTTP基础参数](26-吞吐-HTTP基础参数.png)
+![吞吐-HTTP基础参数](26-吞吐-HTTP基础参数.webp)
 
 吞吐 Load Profile 的字段解释如下：
 
@@ -424,11 +424,11 @@ Load Profile 截图中的曲线和字段含义如下：
 | TCP Window Scale | `0` | 不放大窗口 |
 | Initial Congestion Window | `4` | 保守发送 |
 
-![新建-应用模拟器参数](30-新建-应用模拟器参数.png)
+![新建-应用模拟器参数](30-新建-应用模拟器参数.webp)
 
-![新建-App配置与端口TCP](31-新建-App配置与端口TCP.png)
+![新建-App配置与端口TCP](31-新建-App配置与端口TCP.webp)
 
-![新建-TCP与IP配置](32-新建-TCP与IP配置.png)
+![新建-TCP与IP配置](32-新建-TCP与IP配置.webp)
 
 ### 3. Super Flow 设计
 
@@ -444,9 +444,9 @@ Load Profile 截图中的曲线和字段含义如下：
 
 这里的响应长度同样被压到 1 字节，目的是减少数据传输时间，让连接可以更快完成请求、响应和释放，突出每秒建连能力。
 
-![新建-SuperFlow请求](33-新建-SuperFlow请求.png)
+![新建-SuperFlow请求](33-新建-SuperFlow请求.webp)
 
-![新建-SuperFlow响应](34-新建-SuperFlow响应.png)
+![新建-SuperFlow响应](34-新建-SuperFlow响应.webp)
 
 新建 Super Flow `http_test_xinjian` 与并发流同样是轻量 HTTP，但它明确配置了请求路径和事务结束行为：
 
@@ -483,9 +483,9 @@ Load Profile 截图中的曲线和字段含义如下：
 
 按上述负载曲线执行时，预期表现是每秒 Super Flow 快速升到 `8000` 并保持，最大会话数约 `10000`。这种曲线适合直接打到目标 CPS，快速观察设备是否能稳定接住连接洪峰。
 
-![新建-LoadProfile](35-新建-LoadProfile.png)
+![新建-LoadProfile](35-新建-LoadProfile.webp)
 
-![新建-HTTP基础参数](36-新建-HTTP基础参数.png)
+![新建-HTTP基础参数](36-新建-HTTP基础参数.webp)
 
 新建 Load Profile 的字段解释如下：
 

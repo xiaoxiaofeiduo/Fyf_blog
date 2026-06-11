@@ -79,7 +79,7 @@ Web shell 具有与 Web 服务器相同的权限，通常是有限的。 然而�
 
 ### 使用反向 shell 的远程代码执行 (RCE)
 
-![](../src/RCE.png)
+![](../src/RCE.webp)
 
 <br>
 

@@ -22,6 +22,7 @@ https://xiaoxiaofeiduo.github.io/Fyf_blog/
 
 ```text
 .
+├── assets-originals/      # 原始素材归档目录，不参与博客打包
 ├── docs/                  # 编译后的 GitHub Pages 发布产物，需要提交
 ├── public/                # 静态资源，例如头像 avatar.jpg
 ├── src/
@@ -169,6 +170,25 @@ featured: true
 ```
 
 图片会在构建时被 Vite 收集到 `docs/assets/`，不需要手动复制。
+
+### 原始素材归档
+
+原始图片、未压缩截图、PSD、录屏、导出前素材等统一放在：
+
+```text
+assets-originals/
+```
+
+这个目录位于 `src/content/posts/` 和 `public/` 之外，博客代码也不会引用它，因此不会被 Vite 收集到发布产物 `docs/assets/`。后续如果需要保留原始 PNG，同时又不希望影响文章加载速度和部署体积，就把原始文件放到这里。
+
+注意事项：
+
+- 文章正文不要直接引用 `assets-originals/` 下的文件。
+- 文章实际展示用的图片放在对应文章目录下，例如 `src/content/posts/.../my-topic/image.webp`。
+- 原始 PNG 建议转换为 WebP 后再放入文章目录；如果要求不降低清晰度，使用 lossless WebP。
+- 不要把原始素材放到 `public/`，`public/` 会原样进入最终发布目录。
+- 不要把未压缩大图留在 `src/content/posts/`，该目录下的图片会被 `src/lib/posts.ts` 的 `import.meta.glob` 收集并打包。
+- 按文章或主题建立子目录，例如 `assets-originals/BPS性能测试分享资料-png/`，避免不同文章素材混在一起。
 
 ## 编译最新 docs
 

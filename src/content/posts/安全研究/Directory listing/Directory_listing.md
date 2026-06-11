@@ -29,11 +29,11 @@ featured: false
 
 ### 目录列表攻击示例
 用户向 www.vulnweb.com/admin/ 发出网站请求。 服务器的响应包括目录 admin 的目录内容，如下面的屏幕截图所示。
-![Alt text](listing1.png)
+![Alt text](listing1.webp)
 
 从上面的目录列表中，您可以看到在 admin 目录中，有一个名为 backup 的子目录，其中可能包含足够的信息供攻击者发起攻击。
 
-![Alt text](listing2.png)
+![Alt text](listing2.webp)
 
 攻击者可以显示备份目录中的完整文件列表。 该目录包含密码文件、数据库文件、FTP 日志和 PHP 脚本等敏感文件。 显然，这些信息并不是供公众查看的。
 

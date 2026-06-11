@@ -35,6 +35,7 @@ export function renderMarkdown(
           src={resolveAsset(normalizedSrc) ?? normalizedSrc}
           alt={alt ?? ''}
           loading="lazy"
+          decoding="async"
         />
       );
     },
