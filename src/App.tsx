@@ -1,10 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import { Button, Footer, Icon } from 'animal-island-ui';
-import { AboutPage } from './pages/AboutPage';
 import { GitHubStar } from './components/GitHubStar';
 import { HomePage } from './pages/HomePage';
-import { PostDetailPage } from './pages/PostDetailPage';
-import { PostsPage } from './pages/PostsPage';
+
+const AboutPage = lazy(() => import('./pages/AboutPage').then((module) => ({ default: module.AboutPage })));
+const PostDetailPage = lazy(() => import('./pages/PostDetailPage').then((module) => ({ default: module.PostDetailPage })));
+const PostsPage = lazy(() => import('./pages/PostsPage').then((module) => ({ default: module.PostsPage })));
 
 const navItems = [
   { to: '/', label: '首页' },
@@ -49,12 +51,14 @@ export function App() {
       </header>
 
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/posts" element={<PostsPage />} />
-          <Route path="/posts/:slug" element={<PostDetailPage />} />
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
+        <Suspense fallback={<div className="route-loading">加载中...</div>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="/posts/:slug" element={<PostDetailPage />} />
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <Footer type="sea" />

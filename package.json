@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "prepare:assets": "node scripts/generate-post-index.mjs && node scripts/prepare-ui-css.mjs",
+    "predev": "npm run prepare:assets",
     "dev": "vite",
+    "prebuild": "npm run prepare:assets",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },

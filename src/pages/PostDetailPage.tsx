@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Card, Divider } from 'animal-island-ui';
-import { formatDate, getPostBySlug, postAssetMap } from '../lib/posts';
+import { formatDate, getPostBySlug, loadPostContent } from '../lib/posts';
+import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
 
 function decodeAssetUrl(url: string) {
@@ -34,6 +36,28 @@ function joinAssetPath(basePath: string, relativePath: string) {
 export function PostDetailPage() {
   const { slug } = useParams();
   const post = getPostBySlug(slug);
+  const [content, setContent] = useState('');
+  const [isLoadingContent, setIsLoadingContent] = useState(Boolean(post));
+
+  useEffect(() => {
+    let ignore = false;
+    setContent('');
+    setIsLoadingContent(Boolean(post));
+
+    if (!post) return;
+
+    loadPostContent(post)
+      .then((nextContent) => {
+        if (!ignore) setContent(nextContent);
+      })
+      .finally(() => {
+        if (!ignore) setIsLoadingContent(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [post]);
 
   if (!post) {
     return (
@@ -78,7 +102,9 @@ export function PostDetailPage() {
       <Divider />
 
       <Card className="article-card">
-        <div className="article-content">{renderMarkdown(post.content, resolvePostAsset)}</div>
+        <div className="article-content">
+          {isLoadingContent ? <p>文章加载中...</p> : renderMarkdown(content, resolvePostAsset)}
+        </div>
       </Card>
     </article>
   );

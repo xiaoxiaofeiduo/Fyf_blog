@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { Cursor } from 'animal-island-ui';
-import 'animal-island-ui/style';
+import './vendor/animal-island-ui.css';
 import './styles.css';
 import { App } from './App';
 
