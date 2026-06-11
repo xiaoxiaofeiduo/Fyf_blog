@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, Icon } from 'animal-island-ui';
 import { BlogPost, formatDate } from '../lib/posts';
 
@@ -8,8 +8,15 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, compact = false }: PostCardProps) {
+  const location = useLocation();
+  const isFromPostsPage = location.pathname === '/posts';
+
   return (
-    <Link to={`/posts/${post.slug}`} className="post-card-link">
+    <Link
+      to={`/posts/${post.slug}`}
+      className="post-card-link"
+      state={isFromPostsPage ? { fromPostsList: true } : undefined}
+    >
       <Card className={`post-card ${compact ? 'post-card-compact' : ''}`} color={post.cover as never}>
         {post.category && <span className="post-card-category">{post.category}</span>}
         <div className="post-card-topline">

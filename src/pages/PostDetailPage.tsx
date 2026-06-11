@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Divider } from 'animal-island-ui';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
@@ -35,9 +35,19 @@ function joinAssetPath(basePath: string, relativePath: string) {
 
 export function PostDetailPage() {
   const { slug } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const post = getPostBySlug(slug);
   const [content, setContent] = useState('');
   const [isLoadingContent, setIsLoadingContent] = useState(Boolean(post));
+
+  const returnToPosts = () => {
+    if ((location.state as { fromPostsList?: boolean } | null)?.fromPostsList) {
+      navigate(-1);
+      return;
+    }
+    navigate('/posts');
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -90,8 +100,11 @@ export function PostDetailPage() {
 
   return (
     <article className="article-page">
+      <button className="floating-back-link" type="button" onClick={returnToPosts}>
+        返回文章列表
+      </button>
+
       <header className="article-hero">
-        <Link to="/posts" className="back-link">返回文章</Link>
         <div className="article-meta">
           <span>{formatDate(post.date)}</span>
           <span>{post.readingTime}</span>

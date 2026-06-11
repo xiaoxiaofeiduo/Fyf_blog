@@ -665,16 +665,35 @@ p {
   padding-top: 34px;
 }
 
-.back-link {
-  display: inline-flex;
-  margin-bottom: 22px;
-  color: #3d8f78;
-  font-weight: 900;
-}
-
 .article-hero h1 {
   color: #fff9e6;
   font-size: clamp(42px, 6vw, 64px);
+}
+
+.floating-back-link {
+  position: fixed;
+  left: max(20px, calc((100vw - 1360px) / 2));
+  top: 112px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  color: #fff9e6;
+  background: rgba(61, 143, 120, 0.9);
+  box-shadow: 0 12px 26px rgba(114, 93, 66, 0.2), inset 0 -3px 0 rgba(114, 93, 66, 0.2);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.floating-back-link:hover {
+  transform: translateY(-1px);
+  background: rgba(47, 143, 121, 0.96);
 }
 
 .article-card {
@@ -1202,6 +1221,12 @@ p {
     right: 36px;
     top: 48px;
     opacity: 0.34;
+  }
+
+  .floating-back-link {
+    left: 16px;
+    top: auto;
+    bottom: 18px;
   }
 
   .journey-strip {
