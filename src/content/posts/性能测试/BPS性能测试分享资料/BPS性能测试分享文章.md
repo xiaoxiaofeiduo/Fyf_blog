@@ -243,8 +243,6 @@ featured: false
 
 ![并发-LoadProfile](15-并发-LoadProfile.webp)
 
-![并发-HTTP基础参数](16-并发-HTTP基础参数.webp)
-
 Load Profile 截图中的曲线和字段含义如下：
 
 | 参数 | 并发取值 | 参数作用 | 说明 |
@@ -482,7 +480,6 @@ Load Profile 截图中的曲线和字段含义如下：
 按上述负载曲线执行时，预期表现是每秒 Super Flow 快速升到 `8000` 并保持，最大会话数约 `10000`。这种曲线适合直接打到目标 CPS，快速观察设备是否能稳定接住连接洪峰。
 
 ![新建-LoadProfile](35-新建-LoadProfile.webp)
-
 新建 Load Profile 的字段解释如下：
 
 | 参数 | 新建取值 | 参数作用 | 说明 |
