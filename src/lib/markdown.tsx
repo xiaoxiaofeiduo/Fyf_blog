@@ -10,6 +10,8 @@ export function renderMarkdown(
   markdown: string,
   resolveAsset: (url: string) => string | undefined = () => undefined
 ) {
+  let imageIndex = 0;
+
   const components: Components = {
     a({ href, children, ...props }) {
       const normalizedHref = href ? normalizeUrl(href) : undefined;
@@ -28,14 +30,17 @@ export function renderMarkdown(
     },
     img({ src, alt, ...props }) {
       const normalizedSrc = src ? normalizeUrl(src) : '';
+      const isFirstImage = imageIndex === 0;
+      imageIndex += 1;
 
       return (
         <img
           {...props}
           src={resolveAsset(normalizedSrc) ?? normalizedSrc}
           alt={alt ?? ''}
-          loading="lazy"
+          loading={isFirstImage ? 'eager' : 'lazy'}
           decoding="async"
+          fetchPriority={isFirstImage ? 'high' : 'auto'}
         />
       );
     },
