@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Card, Divider } from 'animal-island-ui';
+import { Button, Card, Divider, Icon } from 'animal-island-ui';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -101,7 +101,10 @@ export function PostDetailPage() {
   return (
     <article className="article-page">
       <button className="floating-back-link" type="button" onClick={returnToPosts}>
-        返回文章列表
+        <span className="floating-back-icon" aria-hidden="true">
+          <Icon name="icon-map" size={18} />
+        </span>
+        <span>返回文章列表</span>
       </button>
 
       <header className="article-hero">
