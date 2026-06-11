@@ -8,19 +8,21 @@ function normalizeUrl(value: string) {
 
 export function renderMarkdown(
   markdown: string,
-  resolveAsset: (url: string) => string | undefined = () => undefined
+  resolveAsset: (url: string) => string | undefined = () => undefined,
+  resolveLink: (url: string) => string | undefined = () => undefined
 ) {
   let imageIndex = 0;
 
   const components: Components = {
     a({ href, children, ...props }) {
       const normalizedHref = href ? normalizeUrl(href) : undefined;
-      const isExternal = normalizedHref ? /^(https?:)?\/\//.test(normalizedHref) : false;
+      const resolvedHref = normalizedHref ? (resolveLink(normalizedHref) ?? normalizedHref) : undefined;
+      const isExternal = resolvedHref ? /^(https?:)?\/\//.test(resolvedHref) : false;
 
       return (
         <a
           {...props}
-          href={normalizedHref}
+          href={resolvedHref}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noreferrer' : undefined}
         >

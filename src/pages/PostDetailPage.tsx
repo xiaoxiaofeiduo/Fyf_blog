@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Card, Divider } from 'animal-island-ui';
-import { formatDate, getPostBySlug, loadPostContent } from '../lib/posts';
+import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
 
@@ -79,6 +79,14 @@ export function PostDetailPage() {
     const normalized = decodeAssetUrl(url).replace(/^\.\//, '');
     return postAssetMap[joinAssetPath(postDir, normalized)];
   };
+  const resolvePostLink = (url: string) => {
+    if (/^(https?:|mailto:|tel:|data:|#|\/)/.test(url)) return url;
+    const normalized = decodeAssetUrl(url).replace(/^\.\//, '');
+    if (!normalized.endsWith('.md')) return url;
+    const targetPath = joinAssetPath(postDir, normalized);
+    const targetPost = posts.find((item) => item.sourcePath === targetPath);
+    return targetPost ? `#/posts/${targetPost.slug}` : url;
+  };
 
   return (
     <article className="article-page">
@@ -103,7 +111,7 @@ export function PostDetailPage() {
 
       <Card className="article-card">
         <div className="article-content">
-          {isLoadingContent ? <p>文章加载中...</p> : renderMarkdown(content, resolvePostAsset)}
+          {isLoadingContent ? <p>文章加载中...</p> : renderMarkdown(content, resolvePostAsset, resolvePostLink)}
         </div>
       </Card>
     </article>

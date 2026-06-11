@@ -38,6 +38,5 @@ featured: false
 
 此外，还有 2 种其他跨站点脚本技术比上述两种技术更少见：
 
-- [基于 DOM 的 XSS]()
-- [盲存储型 XSS]()
-
+- [基于 DOM 的 XSS](./XSSType/DOM-based_XSS.md)
+- [盲存储型 XSS](./XSSType/Blind_XSS.md)
