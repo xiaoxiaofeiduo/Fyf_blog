@@ -1,9 +1,9 @@
 const n=`---
 title: XXE 漏洞详解与防护实践
-date: 2026-06-12
+date: 2026-04-25
 summary: 系统梳理XXE的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。
 tags: 漏洞库, Web安全, XXE, 安全防护, 安全测试
-cover: app-yellow
+cover: app-orange
 readingTime: 18 分钟
 featured: false
 ---

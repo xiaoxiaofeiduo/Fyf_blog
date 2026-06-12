@@ -1,6 +1,6 @@
 ---
 title: 本地文件包含 LFI 详解与防护实践
-date: 2026-06-12
+date: 2026-05-11
 summary: 系统梳理LFI的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。
 tags: 漏洞库, Web安全, 文件包含, LFI, 安全防护, 安全测试
 cover: app-yellow

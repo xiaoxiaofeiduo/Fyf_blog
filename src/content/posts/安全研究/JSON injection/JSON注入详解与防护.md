@@ -1,9 +1,9 @@
 ---
 title: JSON 注入详解与防护实践
-date: 2026-06-12
+date: 2026-05-12
 summary: 系统梳理JSON 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。
 tags: 漏洞库, Web安全, JSON注入, 安全防护, 安全测试
-cover: app-yellow
+cover: app-blue
 readingTime: 13 分钟
 featured: false
 ---

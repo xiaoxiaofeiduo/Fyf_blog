@@ -1,6 +1,6 @@
 const n=`---
 title: SSRF 漏洞详解与防护实践
-date: 2026-06-12
+date: 2026-05-02
 summary: 系统梳理 SSRF 的成因、常见攻击面、危害、测试思路和工程防护方案，重点说明如何在 URL 校验、网络出口、云元数据、重定向、DNS 解析和日志监控层面降低风险。
 tags: 漏洞库, Web安全, SSRF, 安全防护, 安全测试
 cover: app-yellow

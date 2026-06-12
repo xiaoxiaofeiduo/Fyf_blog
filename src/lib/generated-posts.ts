@@ -2,332 +2,6 @@
 
 export const generatedPosts = [
   {
-    "slug": "安全研究-CRLF-injection-CRLF注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/CRLF injection/CRLF注入详解与防护.md",
-    "category": "安全研究",
-    "title": "CRLF 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理CRLF 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "CRLF",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-CSRF-CSRF详解与防护",
-    "sourcePath": "../content/posts/安全研究/CSRF/CSRF详解与防护.md",
-    "category": "安全研究",
-    "title": "CSRF 漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理CSRF的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "CSRF",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-Directory-listing-目录列表漏洞详解与防护",
-    "sourcePath": "../content/posts/安全研究/Directory listing/目录列表漏洞详解与防护.md",
-    "category": "安全研究",
-    "title": "目录列表漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理目录列表漏洞的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "目录安全",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "12 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-Directory_traversal-目录遍历漏洞详解与防护",
-    "sourcePath": "../content/posts/安全研究/Directory_traversal/目录遍历漏洞详解与防护.md",
-    "category": "安全研究",
-    "title": "目录遍历漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理目录遍历的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "目录安全",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "15 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-Email-injection-Email注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/Email injection/Email注入详解与防护.md",
-    "category": "安全研究",
-    "title": "Email 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理Email 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "Email注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "13 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-HTML-injection-HTML注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/HTML injection/HTML注入详解与防护.md",
-    "category": "安全研究",
-    "title": "HTML 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理HTML 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "HTML注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-IDOR-IDOR漏洞详解与防护",
-    "sourcePath": "../content/posts/安全研究/IDOR/IDOR漏洞详解与防护.md",
-    "category": "安全研究",
-    "title": "IDOR 漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理IDOR的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "IDOR",
-      "访问控制",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-JSON-injection-JSON注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/JSON injection/JSON注入详解与防护.md",
-    "category": "安全研究",
-    "title": "JSON 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理JSON 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "JSON注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "13 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-LFI-本地文件包含LFI详解与防护",
-    "sourcePath": "../content/posts/安全研究/LFI/本地文件包含LFI详解与防护.md",
-    "category": "安全研究",
-    "title": "本地文件包含 LFI 详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理LFI的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "文件包含",
-      "LFI",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "15 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-NoSQL-injection-NoSQL注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/NoSQL injection/NoSQL注入详解与防护.md",
-    "category": "安全研究",
-    "title": "NoSQL 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理NoSQL 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "NoSQL注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-OScmd-操作系统命令注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/OScmd/操作系统命令注入详解与防护.md",
-    "category": "安全研究",
-    "title": "操作系统命令注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理操作系统命令注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "命令注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "16 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-RCE-远程代码执行RCE详解与防护",
-    "sourcePath": "../content/posts/安全研究/RCE/远程代码执行RCE详解与防护.md",
-    "category": "安全研究",
-    "title": "远程代码执行 RCE 详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理RCE的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "RCE",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "16 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-RFI-远程文件包含RFI详解与防护",
-    "sourcePath": "../content/posts/安全研究/RFI/远程文件包含RFI详解与防护.md",
-    "category": "安全研究",
-    "title": "远程文件包含 RFI 详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理RFI的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "文件包含",
-      "RFI",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "14 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-SQLi-SQL注入详解与防护",
-    "sourcePath": "../content/posts/安全研究/SQLi/SQL注入详解与防护.md",
-    "category": "安全研究",
-    "title": "SQL 注入详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理SQL 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "SQL注入",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "22 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-SSRF-SSRF详细介绍与防护",
-    "sourcePath": "../content/posts/安全研究/SSRF/SSRF详细介绍与防护.md",
-    "category": "安全研究",
-    "title": "SSRF 漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理 SSRF 的成因、常见攻击面、危害、测试思路和工程防护方案，重点说明如何在 URL 校验、网络出口、云元数据、重定向、DNS 解析和日志监控层面降低风险。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "SSRF",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "24 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-XSS-XSS跨站脚本详解与防护",
-    "sourcePath": "../content/posts/安全研究/XSS/XSS跨站脚本详解与防护.md",
-    "category": "安全研究",
-    "title": "XSS 跨站脚本详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理XSS的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "XSS",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "24 分钟",
-    "featured": false
-  },
-  {
-    "slug": "安全研究-XXE-XXE漏洞详解与防护",
-    "sourcePath": "../content/posts/安全研究/XXE/XXE漏洞详解与防护.md",
-    "category": "安全研究",
-    "title": "XXE 漏洞详解与防护实践",
-    "date": "2026-06-12",
-    "summary": "系统梳理XXE的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
-    "tags": [
-      "安全研究",
-      "漏洞库",
-      "Web安全",
-      "XXE",
-      "安全防护",
-      "安全测试"
-    ],
-    "cover": "app-yellow",
-    "readingTime": "18 分钟",
-    "featured": false
-  },
-  {
     "slug": "功能测试-blog_agent_intent_detection",
     "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
     "category": "功能测试",
@@ -503,6 +177,332 @@ export const generatedPosts = [
     ],
     "cover": "app-pink",
     "readingTime": "6 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-CRLF-injection-CRLF注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/CRLF injection/CRLF注入详解与防护.md",
+    "category": "安全研究",
+    "title": "CRLF 注入详解与防护实践",
+    "date": "2026-05-19",
+    "summary": "系统梳理CRLF 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "CRLF",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-teal",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-CSRF-CSRF详解与防护",
+    "sourcePath": "../content/posts/安全研究/CSRF/CSRF详解与防护.md",
+    "category": "安全研究",
+    "title": "CSRF 漏洞详解与防护实践",
+    "date": "2026-05-18",
+    "summary": "系统梳理CSRF的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "CSRF",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-blue",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-Directory-listing-目录列表漏洞详解与防护",
+    "sourcePath": "../content/posts/安全研究/Directory listing/目录列表漏洞详解与防护.md",
+    "category": "安全研究",
+    "title": "目录列表漏洞详解与防护实践",
+    "date": "2026-05-17",
+    "summary": "系统梳理目录列表漏洞的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "目录安全",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-yellow",
+    "readingTime": "12 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-Directory_traversal-目录遍历漏洞详解与防护",
+    "sourcePath": "../content/posts/安全研究/Directory_traversal/目录遍历漏洞详解与防护.md",
+    "category": "安全研究",
+    "title": "目录遍历漏洞详解与防护实践",
+    "date": "2026-05-16",
+    "summary": "系统梳理目录遍历的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "目录安全",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-green",
+    "readingTime": "15 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-Email-injection-Email注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/Email injection/Email注入详解与防护.md",
+    "category": "安全研究",
+    "title": "Email 注入详解与防护实践",
+    "date": "2026-05-15",
+    "summary": "系统梳理Email 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "Email注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-orange",
+    "readingTime": "13 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-HTML-injection-HTML注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/HTML injection/HTML注入详解与防护.md",
+    "category": "安全研究",
+    "title": "HTML 注入详解与防护实践",
+    "date": "2026-05-14",
+    "summary": "系统梳理HTML 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "HTML注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-pink",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-IDOR-IDOR漏洞详解与防护",
+    "sourcePath": "../content/posts/安全研究/IDOR/IDOR漏洞详解与防护.md",
+    "category": "安全研究",
+    "title": "IDOR 漏洞详解与防护实践",
+    "date": "2026-05-13",
+    "summary": "系统梳理IDOR的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "IDOR",
+      "访问控制",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-teal",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-JSON-injection-JSON注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/JSON injection/JSON注入详解与防护.md",
+    "category": "安全研究",
+    "title": "JSON 注入详解与防护实践",
+    "date": "2026-05-12",
+    "summary": "系统梳理JSON 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "JSON注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-blue",
+    "readingTime": "13 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-LFI-本地文件包含LFI详解与防护",
+    "sourcePath": "../content/posts/安全研究/LFI/本地文件包含LFI详解与防护.md",
+    "category": "安全研究",
+    "title": "本地文件包含 LFI 详解与防护实践",
+    "date": "2026-05-11",
+    "summary": "系统梳理LFI的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "文件包含",
+      "LFI",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-yellow",
+    "readingTime": "15 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-NoSQL-injection-NoSQL注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/NoSQL injection/NoSQL注入详解与防护.md",
+    "category": "安全研究",
+    "title": "NoSQL 注入详解与防护实践",
+    "date": "2026-05-10",
+    "summary": "系统梳理NoSQL 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "NoSQL注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-green",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-OScmd-操作系统命令注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/OScmd/操作系统命令注入详解与防护.md",
+    "category": "安全研究",
+    "title": "操作系统命令注入详解与防护实践",
+    "date": "2026-05-09",
+    "summary": "系统梳理操作系统命令注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "命令注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-orange",
+    "readingTime": "16 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-RCE-远程代码执行RCE详解与防护",
+    "sourcePath": "../content/posts/安全研究/RCE/远程代码执行RCE详解与防护.md",
+    "category": "安全研究",
+    "title": "远程代码执行 RCE 详解与防护实践",
+    "date": "2026-05-08",
+    "summary": "系统梳理RCE的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "RCE",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-pink",
+    "readingTime": "16 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-RFI-远程文件包含RFI详解与防护",
+    "sourcePath": "../content/posts/安全研究/RFI/远程文件包含RFI详解与防护.md",
+    "category": "安全研究",
+    "title": "远程文件包含 RFI 详解与防护实践",
+    "date": "2026-05-07",
+    "summary": "系统梳理RFI的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "文件包含",
+      "RFI",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-teal",
+    "readingTime": "14 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-SQLi-SQL注入详解与防护",
+    "sourcePath": "../content/posts/安全研究/SQLi/SQL注入详解与防护.md",
+    "category": "安全研究",
+    "title": "SQL 注入详解与防护实践",
+    "date": "2026-05-06",
+    "summary": "系统梳理SQL 注入的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "SQL注入",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-blue",
+    "readingTime": "22 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-SSRF-SSRF详细介绍与防护",
+    "sourcePath": "../content/posts/安全研究/SSRF/SSRF详细介绍与防护.md",
+    "category": "安全研究",
+    "title": "SSRF 漏洞详解与防护实践",
+    "date": "2026-05-02",
+    "summary": "系统梳理 SSRF 的成因、常见攻击面、危害、测试思路和工程防护方案，重点说明如何在 URL 校验、网络出口、云元数据、重定向、DNS 解析和日志监控层面降低风险。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "SSRF",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-yellow",
+    "readingTime": "24 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-XSS-XSS跨站脚本详解与防护",
+    "sourcePath": "../content/posts/安全研究/XSS/XSS跨站脚本详解与防护.md",
+    "category": "安全研究",
+    "title": "XSS 跨站脚本详解与防护实践",
+    "date": "2026-05-01",
+    "summary": "系统梳理XSS的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "XSS",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-green",
+    "readingTime": "24 分钟",
+    "featured": false
+  },
+  {
+    "slug": "安全研究-XXE-XXE漏洞详解与防护",
+    "sourcePath": "../content/posts/安全研究/XXE/XXE漏洞详解与防护.md",
+    "category": "安全研究",
+    "title": "XXE 漏洞详解与防护实践",
+    "date": "2026-04-25",
+    "summary": "系统梳理XXE的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。",
+    "tags": [
+      "安全研究",
+      "漏洞库",
+      "Web安全",
+      "XXE",
+      "安全防护",
+      "安全测试"
+    ],
+    "cover": "app-orange",
+    "readingTime": "18 分钟",
     "featured": false
   }
 ];

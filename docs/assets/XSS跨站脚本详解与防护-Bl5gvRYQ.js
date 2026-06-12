@@ -1,9 +1,9 @@
 const o=`---
 title: XSS 跨站脚本详解与防护实践
-date: 2026-06-12
+date: 2026-05-01
 summary: 系统梳理XSS的漏洞原理、常见攻击方式、风险影响、测试关注点和工程防护手段。
 tags: 漏洞库, Web安全, XSS, 安全防护, 安全测试
-cover: app-yellow
+cover: app-green
 readingTime: 24 分钟
 featured: false
 ---
