@@ -2,6 +2,27 @@
 
 export const generatedPosts = [
   {
+    "slug": "AI-实践-go-gin-mock-chat-server",
+    "sourcePath": "../content/posts/AI 实践/go-gin-mock-chat-server.md",
+    "category": "AI 实践",
+    "title": "用 Go + Gin 搭一个本地 AI 流式响应 Mock 服务",
+    "date": "2026-06-24",
+    "summary": "为了让前端可以稳定复现各种 AI 聊天场景，用 Go + Gin 搭建了一个轻量本地 Mock 服务，模拟 OpenAI 风格和自定义协议的流式聊天接口。",
+    "tags": [
+      "AI 实践",
+      "Go",
+      "Gin",
+      "Mock服务",
+      "SSE",
+      "流式响应",
+      "前端调试",
+      "AI接口"
+    ],
+    "cover": "app-teal",
+    "readingTime": "10 分钟",
+    "featured": false
+  },
+  {
     "slug": "功能测试-blog_agent_intent_detection",
     "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
     "category": "功能测试",
