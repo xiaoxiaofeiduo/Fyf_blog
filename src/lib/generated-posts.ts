@@ -2,6 +2,25 @@
 
 export const generatedPosts = [
   {
+    "slug": "系统运维-terminal-multifunction-guide",
+    "sourcePath": "../content/posts/系统运维/terminal-multifunction-guide.md",
+    "category": "系统运维",
+    "title": "打造一个多功能终端环境：基于 zsh、oh-my-zsh 与常用开发工具链",
+    "date": "2026-06-25",
+    "summary": "基于当前终端配置，梳理如何用 zsh、oh-my-zsh、自定义主题、插件补全、目录跳转和多语言工具链实现一个高效的多功能终端。",
+    "tags": [
+      "系统运维",
+      "macOS",
+      "zsh",
+      "oh-my-zsh",
+      "终端配置",
+      "开发环境"
+    ],
+    "cover": "app-teal",
+    "readingTime": "10 分钟",
+    "featured": false
+  },
+  {
     "slug": "AI-实践-go-gin-mock-chat-server",
     "sourcePath": "../content/posts/AI 实践/go-gin-mock-chat-server.md",
     "category": "AI 实践",
