@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { Radar } from 'lucide-react';
 import { GitHubStar } from './components/GitHubStar';
 import { HomePage } from './pages/HomePage';
 
@@ -14,15 +14,19 @@ const navItems = [
   { to: '/about', label: '关于' },
 ];
 
+const pilotAvatarUrl = `${import.meta.env.BASE_URL}pilot-avatar.png?v=gn00-pilot-2`;
+
 export function App() {
   return (
     <div className="app-shell">
       <header className="site-header">
         <NavLink to="/" className="brand" aria-label="返回首页">
-          <span className="brand-mark" aria-hidden="true">YF</span>
+          <span className="brand-mark brand-avatar" aria-hidden="true">
+            <img src={pilotAvatarUrl} alt="" />
+          </span>
           <span>
             <strong>云飞</strong>
-            <small>SECURITY LAB</small>
+            <small>CELESTIAL TEST LAB</small>
           </span>
         </NavLink>
 
@@ -44,8 +48,10 @@ export function App() {
         <GitHubStar />
 
         <Link className="header-action" to="/posts">
-          <span>进入知识库</span>
-          <ArrowUpRight size={15} strokeWidth={1.8} aria-hidden="true" />
+          <span>启动任务</span>
+          <span className="hud-action-icon" aria-hidden="true">
+            <Radar size={14} strokeWidth={1.7} />
+          </span>
         </Link>
       </header>
 
@@ -62,10 +68,12 @@ export function App() {
 
       <footer className="site-footer">
         <div>
-          <span className="brand-mark" aria-hidden="true">YF</span>
+          <span className="brand-mark brand-avatar" aria-hidden="true">
+            <img src={pilotAvatarUrl} alt="" />
+          </span>
           <p><strong>云飞的测试日志</strong><small>记录、验证、沉淀。</small></p>
         </div>
-        <span>© 2026 · BUILT FOR THE OPEN WEB</span>
+        <span>© 2026 · GN SYSTEM / ONLINE</span>
       </footer>
     </div>
   );

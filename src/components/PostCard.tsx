@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ScanSearch } from 'lucide-react';
 import { BlogPost, formatDate } from '../lib/posts';
 
 interface PostCardProps {
@@ -39,7 +39,10 @@ export function PostCard({ post, compact = false }: PostCardProps) {
           ))}
         </div>
         <span className="post-card-more">
-          阅读全文 <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />
+          阅读全文
+          <span className="hud-action-icon" aria-hidden="true">
+            <ScanSearch size={14} strokeWidth={1.7} />
+          </span>
         </span>
       </article>
     </Link>

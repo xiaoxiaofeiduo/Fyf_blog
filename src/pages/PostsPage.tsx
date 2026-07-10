@@ -1,5 +1,6 @@
-import { Card, Divider } from 'animal-island-ui';
+import { Card } from 'animal-island-ui';
 import { useSearchParams } from 'react-router-dom';
+import { HudDivider } from '../components/HudDivider';
 import { PostCard } from '../components/PostCard';
 import { posts } from '../lib/posts';
 
@@ -52,7 +53,7 @@ export function PostsPage() {
   };
 
   return (
-    <section className="page-section">
+    <section className="page-section mission-page-background archive-page-background">
       <div className="page-title">
         <span className="eyebrow">Archive</span>
         <h1>文章</h1>
@@ -85,7 +86,7 @@ export function PostsPage() {
         </div>
       </Card>
 
-      <Divider />
+      <HudDivider />
 
       <div className="archive-summary">
         <strong>{selectedTag || '全部文章'}</strong>

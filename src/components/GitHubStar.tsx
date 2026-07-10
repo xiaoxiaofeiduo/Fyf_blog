@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Star } from 'lucide-react';
+import { Orbit } from 'lucide-react';
 
 const REPO = 'xiaoxiaofeiduo/Fyf_blog';
 const API_URL = `https://api.github.com/repos/${REPO}`;
@@ -63,14 +63,20 @@ export function GitHubStar() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Star on GitHub"
+        aria-describedby="github-star-hint"
+        title="喜欢的话点个 Star 支持一下吧"
       >
-        <Star className="github-star-icon" size={17} strokeWidth={1.8} aria-hidden="true" />
+        <span className="hud-action-icon github-star-icon" aria-hidden="true">
+          <Orbit size={14} strokeWidth={1.7} />
+        </span>
         <span>Star</span>
         {stars !== null && (
           <span className="github-star-count">{formatStarCount(stars)}</span>
         )}
       </a>
-      <span className="github-star-hint">喜欢的话点个 Star 支持一下吧</span>
+      <span id="github-star-hint" className="github-star-hint" role="tooltip">
+        喜欢的话点个 Star 支持一下吧
+      </span>
     </span>
   );
 }
