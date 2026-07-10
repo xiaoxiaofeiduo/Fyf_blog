@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Card, Divider, Icon } from 'animal-island-ui';
+import { Button, Card, Divider } from 'animal-island-ui';
+import { ArrowLeft } from 'lucide-react';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -102,7 +103,7 @@ export function PostDetailPage() {
     <article className="article-page">
       <button className="floating-back-link" type="button" onClick={returnToPosts}>
         <span className="floating-back-icon" aria-hidden="true">
-          <Icon name="icon-map" size={18} />
+          <ArrowLeft size={17} strokeWidth={1.8} />
         </span>
         <span>返回文章列表</span>
       </button>

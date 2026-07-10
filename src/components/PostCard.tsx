@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Card, Icon } from 'animal-island-ui';
+import { ArrowUpRight } from 'lucide-react';
 import { BlogPost, formatDate } from '../lib/posts';
 
 interface PostCardProps {
@@ -17,7 +17,8 @@ export function PostCard({ post, compact = false }: PostCardProps) {
       className="post-card-link"
       state={isFromPostsPage ? { fromPostsList: true } : undefined}
     >
-      <Card className={`post-card ${compact ? 'post-card-compact' : ''}`} color={post.cover as never}>
+      <article className={`post-card ${compact ? 'post-card-compact' : ''}`}>
+        <span className="post-card-beam" aria-hidden="true" />
         {post.category && <span className="post-card-category">{post.category}</span>}
         <div className="post-card-topline">
           <time
@@ -38,9 +39,9 @@ export function PostCard({ post, compact = false }: PostCardProps) {
           ))}
         </div>
         <span className="post-card-more">
-          阅读全文 <Icon name="icon-chat" size={18} />
+          阅读全文 <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />
         </span>
-      </Card>
+      </article>
     </Link>
   );
 }

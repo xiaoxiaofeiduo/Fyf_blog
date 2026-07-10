@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Star } from 'lucide-react';
 
 const REPO = 'xiaoxiaofeiduo/Fyf_blog';
 const API_URL = `https://api.github.com/repos/${REPO}`;
@@ -63,15 +64,7 @@ export function GitHubStar() {
         rel="noopener noreferrer"
         aria-label="Star on GitHub"
       >
-        <svg
-          className="github-star-icon"
-          width="18"
-          height="18"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-        >
-          <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
-        </svg>
+        <Star className="github-star-icon" size={17} strokeWidth={1.8} aria-hidden="true" />
         <span>Star</span>
         {stars !== null && (
           <span className="github-star-count">{formatStarCount(stars)}</span>

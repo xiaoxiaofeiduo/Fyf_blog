@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, Card, Collapse, Divider, Icon } from 'animal-island-ui';
+import { Button, Card, Collapse, Divider } from 'animal-island-ui';
+import {
+  BrainCircuit,
+  FileCode2,
+  Fingerprint,
+  ServerCog,
+  ShieldCheck,
+  type LucideIcon,
+} from 'lucide-react';
 
 interface IpInfo {
   ip?: string;
@@ -30,24 +38,24 @@ interface IpLookupState {
   ipv6Error: string | null;
 }
 
-const focusAreas = [
+const focusAreas: Array<{ icon: LucideIcon; title: string; text: string }> = [
   {
-    icon: 'icon-diy',
+    icon: ShieldCheck,
     title: '安全测试',
     text: '从风险识别、漏洞验证到防护回归，把安全问题拆成可复现、可验证、可跟踪的测试场景。',
   },
   {
-    icon: 'icon-camera',
+    icon: BrainCircuit,
     title: '大模型安全',
     text: '关注提示注入、越权调用、敏感信息泄露和模型输出安全，持续整理智能体应用的测试方法。',
   },
   {
-    icon: 'icon-helicopter',
+    icon: ServerCog,
     title: '系统运维',
     text: '记录服务器、网络、监控、部署和性能排查经验，让问题定位过程留下清晰路径。',
   },
   {
-    icon: 'icon-critterpedia',
+    icon: FileCode2,
     title: '知识沉淀',
     text: '把项目中的零散经验写成结构化 Markdown，方便复盘、分享和长期维护。',
   },
@@ -227,24 +235,31 @@ export function AboutPage() {
           </p>
         </div>
         <Card className="about-profile-card" color="app-yellow">
-          <Icon name="icon-miles" size={48} bounce />
+          <span className="tech-icon-shell tech-icon-shell-large" aria-hidden="true">
+            <Fingerprint size={30} strokeWidth={1.5} />
+          </span>
           <strong>软件测试工程师</strong>
           <span>关注风险识别、防护验证、质量体系与工程效率</span>
         </Card>
       </div>
 
       <div className="about-grid about-focus-grid">
-        {focusAreas.map((area, index) => (
-          <Card
-            key={area.title}
-            className="about-card"
-            color={index % 2 === 0 ? 'app-teal' : 'app-blue'}
-          >
-            <Icon name={area.icon as never} size={42} bounce />
-            <h2>{area.title}</h2>
-            <p>{area.text}</p>
-          </Card>
-        ))}
+        {focusAreas.map((area, index) => {
+          const AreaIcon = area.icon;
+          return (
+            <Card
+              key={area.title}
+              className="about-card"
+              color={index % 2 === 0 ? 'app-teal' : 'app-blue'}
+            >
+              <span className="tech-icon-shell" aria-hidden="true">
+                <AreaIcon size={24} strokeWidth={1.5} />
+              </span>
+              <h2>{area.title}</h2>
+              <p>{area.text}</p>
+            </Card>
+          );
+        })}
       </div>
 
       <section className="about-method-section">

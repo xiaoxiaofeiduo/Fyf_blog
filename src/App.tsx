@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
-import { Button, Footer, Icon } from 'animal-island-ui';
+import { ArrowUpRight } from 'lucide-react';
 import { GitHubStar } from './components/GitHubStar';
 import { HomePage } from './pages/HomePage';
 
@@ -19,12 +19,10 @@ export function App() {
     <div className="app-shell">
       <header className="site-header">
         <NavLink to="/" className="brand" aria-label="返回首页">
-          <span className="brand-mark">
-            <Icon name="icon-map" />
-          </span>
+          <span className="brand-mark" aria-hidden="true">YF</span>
           <span>
             <strong>云飞</strong>
-            <small>测试日志</small>
+            <small>SECURITY LAB</small>
           </span>
         </NavLink>
 
@@ -46,7 +44,8 @@ export function App() {
         <GitHubStar />
 
         <Link className="header-action" to="/posts">
-          <Button type="primary" size="small">开始阅读</Button>
+          <span>进入知识库</span>
+          <ArrowUpRight size={15} strokeWidth={1.8} aria-hidden="true" />
         </Link>
       </header>
 
@@ -61,7 +60,13 @@ export function App() {
         </Suspense>
       </main>
 
-      <Footer type="sea" />
+      <footer className="site-footer">
+        <div>
+          <span className="brand-mark" aria-hidden="true">YF</span>
+          <p><strong>云飞的测试日志</strong><small>记录、验证、沉淀。</small></p>
+        </div>
+        <span>© 2026 · BUILT FOR THE OPEN WEB</span>
+      </footer>
     </div>
   );
 }

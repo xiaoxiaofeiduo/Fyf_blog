@@ -1,56 +1,43 @@
 import { Link } from 'react-router-dom';
-import { Button, Card, Divider, Phone, Tabs, Typewriter, Icon } from 'animal-island-ui';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
 import { posts } from '../lib/posts';
 
-const focusTabs = [
+const heroHighlights = ['WEB SECURITY', 'LLM SAFETY', 'DEVOPS', 'TEST ENGINEERING'];
+const latestPosts = posts.slice(0, 3);
+const categories = new Set(posts.map((post) => post.category).filter(Boolean)).size;
+
+const focusAreas = [
   {
-    key: 'web-security',
-    label: 'Web 安全防护',
-    children: (
-      <p>
-        记录 Web 应用安全测试、防护策略、漏洞验证、攻防链路复盘和安全质量体系建设。
-      </p>
-    ),
+    index: '01',
+    title: 'Web 安全防护',
+    text: '从漏洞复现到防护回归，把风险拆成可验证、可追踪的测试场景。',
+    signal: 'ATTACK SURFACE',
   },
   {
-    key: 'llm-security',
-    label: '大模型安全',
-    children: (
-      <p>
-        关注提示注入、越权调用、数据泄露、模型输出安全和智能体应用的安全测试方法。
-      </p>
-    ),
+    index: '02',
+    title: '大模型安全',
+    text: '关注提示注入、越权调用、数据泄露与智能体应用安全边界。',
+    signal: 'MODEL GUARD',
   },
   {
-    key: 'test-engineering',
-    label: '测试工程',
-    children: (
-      <p>
-        以软件测试工程师视角沉淀用例设计、自动化验证、风险评估和质量度量实践。
-      </p>
-    ),
+    index: '03',
+    title: '测试工程',
+    text: '沉淀自动化验证、风险评估、质量度量和复杂问题定位方法。',
+    signal: 'QUALITY OPS',
   },
 ];
-
-const heroHighlights = ['安全测试', '大模型安全', '系统运维', '测试工程'];
-const latestPosts = posts.slice(0, 3);
 
 export function HomePage() {
   return (
     <>
       <section className="hero-section">
-        <div className="hero-avatar" aria-label="云飞头像" />
-
         <div className="hero-copy">
-          <span className="eyebrow">Software Test Engineer / Security Defense</span>
-          <h1>云飞的测试日志</h1>
-          <div className="hero-type">
-            <Typewriter speed={70}>记录 Web 应用安全防护、大模型安全防护与测试工程实践。</Typewriter>
-          </div>
+          <span className="eyebrow"><i /> SYSTEM ONLINE · 2026</span>
+          <h1>构建可信的<br /><span>数字防线</span></h1>
           <p>
-            一个面向安全测试与防护实践的个人博客，用轻松的岛屿界面承载严肃的安全工程思考。
-            这里会持续整理 Web 攻防验证、大模型安全测试、风险评估和质量防护体系。
+            云飞的技术实验场。记录 Web 攻防验证、大模型安全测试、系统运维与质量工程实践，
+            把每一次排查变成可复用的工程资产。
           </p>
           <div className="hero-highlights" aria-label="博客关注方向">
             {heroHighlights.map((item) => (
@@ -58,27 +45,53 @@ export function HomePage() {
             ))}
           </div>
           <div className="hero-actions">
-            <Link to="/posts">
-              <Button type="primary" size="large">阅读文章</Button>
+            <Link className="tech-button tech-button-primary" to="/posts">
+              探索知识库 <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />
             </Link>
-            <Link to="/about">
-              <Button type="dashed" size="large">关于云飞</Button>
+            <Link className="tech-button" to="/about">
+              了解实验室 <ArrowRight size={16} strokeWidth={1.8} aria-hidden="true" />
             </Link>
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="岛屿手机视觉组件">
-          <Phone />
+        <div className="hero-visual" aria-label="安全测试终端状态面板">
+          <div className="radar-orbit radar-orbit-one" />
+          <div className="radar-orbit radar-orbit-two" />
+          <div className="hero-avatar" aria-label="云飞头像" />
+          <div className="terminal-panel">
+            <div className="terminal-bar">
+              <span /><span /><span />
+              <code>yf@security-lab:~</code>
+            </div>
+            <div className="terminal-body">
+              <p><b>$</b> ./scan --target knowledge-base</p>
+              <p><em>✓</em> web_security ........ armed</p>
+              <p><em>✓</em> llm_guard ........... active</p>
+              <p><em>✓</em> quality_pipeline .... stable</p>
+              <p className="terminal-cursor"><b>$</b> monitoring<span>_</span></p>
+            </div>
+          </div>
+          <span className="status-chip status-chip-top">THREAT MONITOR</span>
+          <span className="status-chip status-chip-bottom">ALL SYSTEMS NOMINAL</span>
         </div>
       </section>
 
-      <Divider />
+      <section className="metrics-strip" aria-label="博客数据">
+        <div><strong>{String(posts.length).padStart(2, '0')}</strong><span>技术文章</span></div>
+        <div><strong>{String(categories).padStart(2, '0')}</strong><span>知识领域</span></div>
+        <div><strong>100%</strong><span>实践驱动</span></div>
+        <div className="metrics-line"><span>LIVE FEED</span><i /></div>
+      </section>
 
       <section className="section-block">
         <div className="section-heading">
-          <span className="eyebrow">Featured Posts</span>
-          <h2>近期分享</h2>
-          <p>按发布时间展示最新整理的排查过程、部署经验和安全验证方法。</p>
+          <div>
+            <span className="eyebrow"><i /> LATEST INTELLIGENCE</span>
+            <h2>最新技术情报</h2>
+          </div>
+          <Link className="section-link" to="/posts">
+            查看全部文章 <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
+          </Link>
         </div>
         <div className="post-grid">
           {latestPosts.map((post) => (
@@ -88,46 +101,29 @@ export function HomePage() {
       </section>
 
       <section className="focus-section">
-        <Card className="focus-card">
-          <div className="section-heading">
-            <span className="eyebrow">Topics</span>
-            <h2>写作主题</h2>
-            <p>围绕真实项目里的测试问题展开，记录从发现风险到验证防护的完整思路。</p>
+        <div className="focus-intro">
+          <span className="eyebrow"><i /> CORE DOMAINS</span>
+          <h2>持续探索的<br />三个方向</h2>
+          <p>从攻击面到质量体系，关注问题如何发生，更关注防线如何被证明确实有效。</p>
+          <div className="focus-scan" aria-hidden="true">
+            <span /><span /><span /><span /><span />
           </div>
-          <Tabs items={focusTabs} defaultActiveKey="web-security" />
-        </Card>
-
-        <div className="stats-grid">
-          <Card color="app-yellow" className="stat-card">
-            <Icon name="icon-diy" size={34} bounce />
-            <strong>安全测试</strong>
-            <span>把真实风险拆成可验证场景</span>
-          </Card>
-          <Card color="app-teal" className="stat-card">
-            <Icon name="icon-camera" size={34} bounce />
-            <strong>防护验证</strong>
-            <span>关注漏洞复现与防护有效性</span>
-          </Card>
-          <Card color="app-blue" className="stat-card">
-            <Icon name="icon-variant" size={34} bounce />
-            <strong>安全沉淀</strong>
-            <span>用 Markdown 维护长期知识库</span>
-          </Card>
+        </div>
+        <div className="focus-grid">
+          {focusAreas.map((area) => (
+            <article className="focus-card" key={area.index}>
+              <div className="focus-card-top"><span>{area.index}</span><code>{area.signal}</code></div>
+              <h3>{area.title}</h3>
+              <p>{area.text}</p>
+              <div className="focus-card-signal"><i /><i /><i /><i /></div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="section-block journey-strip">
-        <div>
-          <span className="eyebrow">Workflow</span>
-          <h2>从问题到笔记</h2>
-        </div>
-        <div className="journey-steps">
-          <span>定位现象</span>
-          <span>复现实验</span>
-          <span>验证防护</span>
-          <span>沉淀方法</span>
-        </div>
-      </section>
+      <div className="signal-marquee" aria-hidden="true">
+        <div>SECURITY TESTING <span>◆</span> LLM SAFETY <span>◆</span> SYSTEM OPERATIONS <span>◆</span> QUALITY ENGINEERING <span>◆</span> SECURITY TESTING <span>◆</span> LLM SAFETY <span>◆</span> SYSTEM OPERATIONS <span>◆</span> QUALITY ENGINEERING <span>◆</span></div>
+      </div>
     </>
   );
 }
