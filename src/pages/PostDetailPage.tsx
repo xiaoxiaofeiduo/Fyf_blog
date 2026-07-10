@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Card, Divider, Icon } from 'animal-island-ui';
+import { Button, Card } from 'animal-island-ui';
+import { LocateFixed } from 'lucide-react';
+import { HudDivider } from '../components/HudDivider';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -71,7 +73,7 @@ export function PostDetailPage() {
 
   if (!post) {
     return (
-      <section className="page-section">
+      <section className="page-section mission-page-background article-page-background">
         <Card className="empty-state">
           <h1>没有找到这篇文章</h1>
           <p>它可能已经被移动，或者链接里有一个拼写错误。</p>
@@ -99,10 +101,10 @@ export function PostDetailPage() {
   };
 
   return (
-    <article className="article-page">
+    <article className="article-page mission-page-background article-page-background">
       <button className="floating-back-link" type="button" onClick={returnToPosts}>
         <span className="floating-back-icon" aria-hidden="true">
-          <Icon name="icon-map" size={18} />
+          <LocateFixed size={16} strokeWidth={1.7} />
         </span>
         <span>返回文章列表</span>
       </button>
@@ -123,7 +125,7 @@ export function PostDetailPage() {
         </div>
       </header>
 
-      <Divider />
+      <HudDivider />
 
       <Card className="article-card">
         <div className="article-content">

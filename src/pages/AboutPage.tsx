@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, Card, Collapse, Divider, Icon } from 'animal-island-ui';
+import { Button, Card } from 'animal-island-ui';
+import {
+  ChevronsDown,
+  Cpu,
+  Crosshair,
+  DatabaseZap,
+  SatelliteDish,
+  type LucideIcon,
+} from 'lucide-react';
+import { HudDivider } from '../components/HudDivider';
 
 interface IpInfo {
   ip?: string;
@@ -30,30 +39,32 @@ interface IpLookupState {
   ipv6Error: string | null;
 }
 
-const focusAreas = [
+const focusAreas: Array<{ icon: LucideIcon; title: string; text: string }> = [
   {
-    icon: 'icon-diy',
+    icon: Crosshair,
     title: '安全测试',
     text: '从风险识别、漏洞验证到防护回归，把安全问题拆成可复现、可验证、可跟踪的测试场景。',
   },
   {
-    icon: 'icon-camera',
+    icon: Cpu,
     title: '大模型安全',
     text: '关注提示注入、越权调用、敏感信息泄露和模型输出安全，持续整理智能体应用的测试方法。',
   },
   {
-    icon: 'icon-helicopter',
+    icon: SatelliteDish,
     title: '系统运维',
     text: '记录服务器、网络、监控、部署和性能排查经验，让问题定位过程留下清晰路径。',
   },
   {
-    icon: 'icon-critterpedia',
+    icon: DatabaseZap,
     title: '知识沉淀',
     text: '把项目中的零散经验写成结构化 Markdown，方便复盘、分享和长期维护。',
   },
 ];
 
 const methods = ['先复现，再判断', '先证据，再结论', '先可读，再完整', '先实践，再抽象'];
+
+const pilotAvatarUrl = `${import.meta.env.BASE_URL}pilot-avatar.png?v=gn00-pilot-2`;
 
 const timeline = [
   {
@@ -71,6 +82,21 @@ const timeline = [
   {
     label: '写成文章',
     text: '把判断依据、操作步骤、踩坑点和结论整理成后续能复用的笔记。',
+  },
+];
+
+const faqItems = [
+  {
+    question: '这个博客主要写什么？',
+    answer: '主要记录安全测试、防护验证、大模型安全、系统运维和测试工程实践，内容尽量来自真实问题和可复用经验。',
+  },
+  {
+    question: '为什么叫测试日志？',
+    answer: '因为这里更像一份持续更新的工程记录：保留现象、命令、判断依据、验证过程和结论，方便之后复盘。',
+  },
+  {
+    question: '这个博客如何新增文章？',
+    answer: '可以在 src/content/posts 下新增单个 Markdown，也可以新建一个文件夹，在文件夹内放 Markdown 和图片资源。',
   },
 ];
 
@@ -216,7 +242,7 @@ export function AboutPage() {
   }, []);
 
   return (
-    <section className="page-section about-layout">
+    <section className="page-section about-layout mission-page-background about-page-background">
       <div className="about-hero">
         <div className="page-title">
           <span className="eyebrow">About</span>
@@ -227,24 +253,31 @@ export function AboutPage() {
           </p>
         </div>
         <Card className="about-profile-card" color="app-yellow">
-          <Icon name="icon-miles" size={48} bounce />
+          <span className="profile-avatar-shell" aria-hidden="true">
+            <img src={pilotAvatarUrl} alt="" />
+          </span>
           <strong>软件测试工程师</strong>
           <span>关注风险识别、防护验证、质量体系与工程效率</span>
         </Card>
       </div>
 
       <div className="about-grid about-focus-grid">
-        {focusAreas.map((area, index) => (
-          <Card
-            key={area.title}
-            className="about-card"
-            color={index % 2 === 0 ? 'app-teal' : 'app-blue'}
-          >
-            <Icon name={area.icon as never} size={42} bounce />
-            <h2>{area.title}</h2>
-            <p>{area.text}</p>
-          </Card>
-        ))}
+        {focusAreas.map((area, index) => {
+          const AreaIcon = area.icon;
+          return (
+            <Card
+              key={area.title}
+              className="about-card"
+              color={index % 2 === 0 ? 'app-teal' : 'app-blue'}
+            >
+              <span className="tech-icon-shell" aria-hidden="true">
+                <AreaIcon size={24} strokeWidth={1.5} />
+              </span>
+              <h2>{area.title}</h2>
+              <p>{area.text}</p>
+            </Card>
+          );
+        })}
       </div>
 
       <section className="about-method-section">
@@ -271,22 +304,21 @@ export function AboutPage() {
         </div>
       </section>
 
-      <Divider />
+      <HudDivider />
 
       <div className="faq-list">
-        <Collapse
-          defaultExpanded
-          question="这个博客主要写什么？"
-          answer="主要记录安全测试、防护验证、大模型安全、系统运维和测试工程实践，内容尽量来自真实问题和可复用经验。"
-        />
-        <Collapse
-          question="为什么叫测试日志？"
-          answer="因为这里更像一份持续更新的工程记录：保留现象、命令、判断依据、验证过程和结论，方便之后复盘。"
-        />
-        <Collapse
-          question="这个博客如何新增文章？"
-          answer="可以在 src/content/posts 下新增单个 Markdown，也可以新建一个文件夹，在文件夹内放 Markdown 和图片资源。"
-        />
+        {faqItems.map((item, index) => (
+          <details className="faq-hud-item" key={item.question} open={index === 0}>
+            <summary>
+              <span className="faq-hud-code">Q-{String(index + 1).padStart(2, '0')}</span>
+              <strong>{item.question}</strong>
+              <span className="hud-action-icon" aria-hidden="true">
+                <ChevronsDown size={14} strokeWidth={1.7} />
+              </span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
       </div>
 
       <section className="ip-lookup-section">
