@@ -22,9 +22,15 @@ const focusAreas = [
   },
   {
     index: 'GN-03',
+    title: '系统可靠性',
+    text: '覆盖部署、监控、性能与故障定位，为持续运行提供可观测证据。',
+    signal: 'KYRIOS / SYSTEM OPS',
+  },
+  {
+    index: 'GN-04',
     title: '测试工程',
     text: '沉淀自动化验证、风险评估、质量度量和复杂问题定位方法。',
-    signal: 'KYRIOS / QUALITY OPS',
+    signal: 'VIRTUE / QUALITY OPS',
   },
 ];
 
@@ -79,9 +85,9 @@ export function HomePage() {
       </section>
 
       <section className="metrics-strip" aria-label="博客数据">
-        <div><strong>{String(posts.length).padStart(2, '0')}</strong><span>技术文章</span></div>
-        <div><strong>{String(categories).padStart(2, '0')}</strong><span>知识领域</span></div>
-        <div><strong>97.4%</strong><span>GN 粒子浓度</span></div>
+        <div><small>MISSION RECORDS</small><strong>{String(posts.length).padStart(2, '0')}</strong><span>技术文章</span><i className="metric-wave" /></div>
+        <div><small>TACTICAL DOMAINS</small><strong>{String(categories).padStart(2, '0')}</strong><span>知识领域</span><i className="metric-wave" /></div>
+        <div><small>SYSTEM INTEGRITY</small><strong>97.4%</strong><span>GN 粒子浓度</span><i className="metric-wave" /></div>
         <div className="metrics-line"><span>VEDA LINK</span><i /></div>
       </section>
 
@@ -108,7 +114,7 @@ export function HomePage() {
       <section className="focus-section">
         <div className="focus-intro">
           <span className="eyebrow"><i /> TACTICAL CONFIGURATION</span>
-          <h2>三套核心<br />作战模块</h2>
+          <h2>四套核心<br />作战模块</h2>
           <p>从攻击面到质量体系，关注问题如何发生，更关注防线如何被证明确实有效。</p>
           <div className="focus-scan" aria-hidden="true">
             <span /><span /><span /><span /><span />

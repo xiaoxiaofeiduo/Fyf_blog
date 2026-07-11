@@ -3030,3 +3030,54 @@ body::before {
     display: none;
   }
 }
+
+/* Celestial Being mission-system enhancements */
+.route-scan { position: fixed; inset: 0; z-index: 90; overflow: hidden; pointer-events: none; animation: route-scan-fade 620ms ease-out forwards; }
+.route-scan::before { content: "VEDA / MISSION DATA LOADING"; position: absolute; top: 50%; left: 50%; translate: -50% -50%; color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; letter-spacing: .22em; }
+.route-scan i { position: absolute; inset-inline: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), var(--green), transparent); box-shadow: 0 0 24px var(--cyan); animation: route-scan-line 520ms ease-in forwards; }
+@keyframes route-scan-line { to { top: 100%; } }
+@keyframes route-scan-fade { 0%, 64% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+.nav-link small { margin-right: 6px; color: rgba(85, 242, 255, .46); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; }
+.nav-link-active small { color: var(--cobalt); }
+
+.metrics-strip > div > small { margin-bottom: 7px; display: block; color: rgba(85, 242, 255, .48); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; letter-spacing: .1em; }
+.metric-wave { width: 42px; height: 8px; margin-top: 8px; display: block; background: repeating-linear-gradient(90deg, var(--cyan) 0 2px, transparent 2px 6px); clip-path: polygon(0 65%, 12% 65%, 18% 15%, 25% 85%, 34% 35%, 43% 70%, 54% 10%, 62% 75%, 72% 45%, 82% 65%, 100% 65%, 100% 100%, 0 100%); opacity: .7; }
+
+.post-card-classification { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.post-card-classification code { color: rgba(85, 242, 255, .48); font-size: 7px; letter-spacing: .08em; }
+
+.archive-telemetry { margin: 0 0 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid rgba(85, 242, 255, .18); background: rgba(3, 16, 34, .78); }
+.archive-telemetry > div { min-width: 0; padding: 15px 17px; display: grid; gap: 5px; border-right: 1px solid var(--line-soft); }
+.archive-telemetry > div:last-child { border-right: 0; }
+.archive-telemetry small { color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; letter-spacing: .12em; }
+.archive-telemetry strong { overflow: hidden; color: var(--text); font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+.archive-telemetry span { color: var(--muted); font-size: 9px; }
+
+.reading-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 80; height: 3px; background: rgba(2, 9, 22, .86); }
+.reading-progress > span { height: 100%; display: block; background: linear-gradient(90deg, var(--cobalt), var(--cyan), var(--green)); box-shadow: 0 0 14px var(--cyan); transition: width 100ms linear; }
+.reading-progress code { position: absolute; top: 7px; right: 12px; color: rgba(85, 242, 255, .5); font-size: 6px; letter-spacing: .08em; }
+.article-file-code { margin-bottom: 14px; color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; letter-spacing: .14em; }
+
+.footer-telemetry { display: flex; gap: 24px !important; }
+.footer-telemetry > span { display: grid; gap: 5px; }
+.footer-telemetry small { margin: 0; color: rgba(85, 242, 255, .45); font-size: 6px; }
+.footer-telemetry strong { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+
+@media (max-width: 920px) {
+  .archive-telemetry { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .archive-telemetry > div:nth-child(2) { border-right: 0; }
+  .footer-telemetry { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  .route-scan::before, .reading-progress code { display: none; }
+  .archive-telemetry { grid-template-columns: 1fr; }
+  .archive-telemetry > div { border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .archive-telemetry > div:last-child { border-bottom: 0; }
+  .post-card-classification code { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-scan { display: none; }
+}

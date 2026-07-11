@@ -4,6 +4,7 @@ import { Button, Card } from 'animal-island-ui';
 import { LocateFixed } from 'lucide-react';
 import { HudDivider } from '../components/HudDivider';
 import { SignalMarquee } from '../components/SignalMarquee';
+import { ReadingProgress } from '../components/ReadingProgress';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -103,6 +104,7 @@ export function PostDetailPage() {
 
   return (
     <article className="article-page mission-page-background article-page-background">
+      <ReadingProgress />
       <button className="floating-back-link" type="button" onClick={returnToPosts}>
         <span className="floating-back-icon" aria-hidden="true">
           <LocateFixed size={16} strokeWidth={1.7} />
@@ -111,6 +113,7 @@ export function PostDetailPage() {
       </button>
 
       <header className="article-hero">
+        <div className="article-file-code">VEDA INTELLIGENCE FILE / {post.slug.toUpperCase().slice(-16)}</div>
         <div className="article-meta">
           <span>{formatDate(post.date)}</span>
           <span>{post.readingTime}</span>

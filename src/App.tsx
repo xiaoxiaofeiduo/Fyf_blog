@@ -1,26 +1,31 @@
 import { lazy, Suspense } from 'react';
-import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { Radar } from 'lucide-react';
 import { GitHubStar } from './components/GitHubStar';
 import { CelestialAmbient } from './components/CelestialAmbient';
 import { HomePage } from './pages/HomePage';
+import { posts } from './lib/posts';
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then((module) => ({ default: module.AboutPage })));
 const PostDetailPage = lazy(() => import('./pages/PostDetailPage').then((module) => ({ default: module.PostDetailPage })));
 const PostsPage = lazy(() => import('./pages/PostsPage').then((module) => ({ default: module.PostsPage })));
 
 const navItems = [
-  { to: '/', label: '首页' },
-  { to: '/posts', label: '文章' },
-  { to: '/about', label: '关于' },
+  { to: '/', label: '首页', code: '00' },
+  { to: '/posts', label: '文章', code: '01' },
+  { to: '/about', label: '关于', code: '02' },
 ];
 
 const siteAvatarUrl = `${import.meta.env.BASE_URL}gn00-site-avatar.webp?v=gn00-site-1`;
 
 export function App() {
+  const location = useLocation();
+  const categories = new Set(posts.map((post) => post.category).filter(Boolean)).size;
+
   return (
     <div className="app-shell">
       <CelestialAmbient />
+      <div className="route-scan" key={location.pathname} aria-hidden="true"><i /></div>
       <header className="site-header">
         <NavLink to="/" className="brand" aria-label="返回首页">
           <span className="brand-mark brand-avatar brand-gundam-avatar" aria-hidden="true">
@@ -42,7 +47,7 @@ export function App() {
               }
               end={item.to === '/'}
             >
-              {item.label}
+              <small>{item.code}</small>{item.label}
             </NavLink>
           ))}
         </nav>
@@ -74,6 +79,11 @@ export function App() {
             <img src={siteAvatarUrl} alt="" />
           </span>
           <p><strong>GN 测试日志</strong><small>记录、验证、沉淀。</small></p>
+        </div>
+        <div className="footer-telemetry" aria-label="站点统计">
+          <span><small>RECORDS</small><strong>{String(posts.length).padStart(2, '0')}</strong></span>
+          <span><small>DOMAINS</small><strong>{String(categories).padStart(2, '0')}</strong></span>
+          <span><small>VEDA LINK</small><strong className="status-ready">ONLINE</strong></span>
         </div>
         <span>© 2026 · GN SYSTEM / ONLINE</span>
       </footer>
