@@ -9,6 +9,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { HudDivider } from '../components/HudDivider';
+import { SignalMarquee } from '../components/SignalMarquee';
 
 interface IpInfo {
   ip?: string;
@@ -349,6 +350,12 @@ export function AboutPage() {
           </div>
         </Card>
       </section>
+
+      <SignalMarquee
+        variant="about"
+        fullBleed
+        items={['PILOT PROFILE', 'CELESTIAL TEST LAB', 'SYSTEM ONLINE', 'VEDA LINK']}
+      />
     </section>
   );
 }

@@ -2,6 +2,7 @@ import { Card } from 'animal-island-ui';
 import { useSearchParams } from 'react-router-dom';
 import { HudDivider } from '../components/HudDivider';
 import { PostCard } from '../components/PostCard';
+import { SignalMarquee } from '../components/SignalMarquee';
 import { posts } from '../lib/posts';
 
 const categoryTags = Array.from(new Set(posts.map((post) => post.category).filter((tag): tag is string => Boolean(tag))));
@@ -156,6 +157,12 @@ export function PostsPage() {
           </button>
         </nav>
       )}
+
+      <SignalMarquee
+        variant="archive"
+        fullBleed
+        items={['ARCHIVE LINK', 'MISSION RECORDS', 'DATA SCAN', 'KNOWLEDGE BASE']}
+      />
     </section>
   );
 }

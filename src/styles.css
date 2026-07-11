@@ -443,6 +443,7 @@ p {
   place-items: center;
   position: relative;
   isolation: isolate;
+  --hero-background-position: center center;
 }
 
 .hero-visual::before {
@@ -997,6 +998,53 @@ p {
 
 .signal-marquee span {
   margin: 0 30px;
+}
+
+.signal-marquee-item {
+  margin: 0 !important;
+}
+
+.signal-marquee-item i {
+  margin: 0 30px;
+  font-style: normal;
+}
+
+.signal-marquee-full-bleed {
+  width: 100vw;
+  margin: 76px calc(50% - 50vw) -88px;
+}
+
+.signal-marquee-archive {
+  color: #031329;
+  border-color: var(--cyan);
+  background: linear-gradient(90deg, #cde8ff 0 58%, #8edcff 78%, #62ffad 100%);
+  box-shadow: inset 0 4px var(--cobalt), inset 0 -4px var(--cyan);
+}
+
+.signal-marquee-article {
+  color: #1b0d05;
+  border-color: var(--signal-yellow);
+  background: linear-gradient(90deg, #ffe58a 0 56%, #ffb95c 76%, #ff5f6d 100%);
+  box-shadow: inset 0 4px var(--danger), inset 0 -4px var(--signal-yellow);
+}
+
+.signal-marquee-about {
+  color: #03160f;
+  border-color: var(--green);
+  background: linear-gradient(90deg, #baffd9 0 56%, #62ffad 76%, #55f2ff 100%);
+  box-shadow: inset 0 4px #12b979, inset 0 -4px var(--cyan);
+}
+
+@media (max-width: 600px) {
+  .signal-marquee-full-bleed {
+    margin-top: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-marquee div {
+    animation-play-state: paused;
+  }
 }
 
 .page-title {
@@ -2213,10 +2261,23 @@ body::before {
   inset: 0;
   z-index: -3;
   background-image: url("/gn-mecha-hero.png");
-  background-position: center;
+  background-position: var(--hero-background-position);
   background-size: cover;
   filter: saturate(0.92) contrast(1.05);
   animation: hero-focus 12s ease-in-out infinite alternate;
+}
+
+/* Give wide displays enough height to stay close to the artwork's 16:9 ratio.
+   This keeps the background full-bleed while avoiding an oversized, cropped suit. */
+@media (min-width: 1200px) {
+  .hero-section {
+    min-height: clamp(820px, 56.28vw, 1040px);
+  }
+
+  .hero-section::before {
+    background-position: center center;
+    background-size: cover;
+  }
 }
 
 .hero-section::after {
@@ -2235,20 +2296,24 @@ body::before {
   isolation: isolate;
   --mission-background-image: url("/gn-archive-mecha.webp");
   --mission-background-opacity: 0.72;
+  --mission-background-position: center center;
 }
 
 .archive-page-background {
   --mission-background-image: url("/gn-archive-mecha.webp");
+  --mission-background-position: 68% center;
 }
 
 .article-page-background {
   --mission-background-image: url("/gn-article-mecha.webp");
   --mission-background-opacity: 0.68;
+  --mission-background-position: 68% center;
 }
 
 .about-page-background {
   --mission-background-image: url("/gn-about-mecha.webp");
   --mission-background-opacity: 0.7;
+  --mission-background-position: 68% center;
 }
 
 .mission-page-background::before,
@@ -2263,12 +2328,16 @@ body::before {
 }
 
 .mission-page-background::before {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: -3;
   background-image: var(--mission-background-image);
-  background-position: center center;
+  background-position: var(--mission-background-position);
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   opacity: var(--mission-background-opacity);
   filter: saturate(0.88) contrast(1.08);
 }
@@ -2281,11 +2350,8 @@ body::before {
 }
 
 @media (max-width: 768px) {
-  .mission-page-background::before {
-    background-attachment: scroll;
-    background-position: 64% top;
-    background-size: auto 100vh;
-    background-repeat: repeat-y;
+  .mission-page-background {
+    --mission-background-position: 72% center;
   }
 }
 

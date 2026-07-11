@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Card } from 'animal-island-ui';
 import { LocateFixed } from 'lucide-react';
 import { HudDivider } from '../components/HudDivider';
+import { SignalMarquee } from '../components/SignalMarquee';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -132,6 +133,12 @@ export function PostDetailPage() {
           {isLoadingContent ? <p>文章加载中...</p> : renderMarkdown(content, resolvePostAsset, resolvePostLink)}
         </div>
       </Card>
+
+      <SignalMarquee
+        variant="article"
+        fullBleed
+        items={['TACTICAL BRIEFING', 'INTELLIGENCE FILE', 'VERIFY TARGET', 'MISSION DATA']}
+      />
     </article>
   );
 }
