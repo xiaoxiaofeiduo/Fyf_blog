@@ -61,6 +61,13 @@ export function PostsPage() {
         <p>按时间整理安全测试、防护验证、系统运维和大模型实践记录。用标签快速筛选主题，用文章复盘真实问题。</p>
       </div>
 
+      <div className="archive-telemetry" aria-label="档案库状态">
+        <div><small>TOTAL FILES</small><strong>{String(posts.length).padStart(2, '0')}</strong><span>全部任务记录</span></div>
+        <div><small>ACTIVE FILTER</small><strong>{selectedTag || 'ALL'}</strong><span>当前战术筛选</span></div>
+        <div><small>PAGE CHANNEL</small><strong>{String(currentPage).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}</strong><span>档案频道</span></div>
+        <div><small>VEDA SYNC</small><strong className="status-ready">ONLINE</strong><span>{filteredPosts.length} 条匹配记录</span></div>
+      </div>
+
       <Card className="tag-panel">
         <div className="tag-panel-title">
           <strong>主题标签</strong>

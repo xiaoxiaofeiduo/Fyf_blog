@@ -30,8 +30,10 @@ export async function loadPostContent(post: BlogPost) {
   const loader = postContentModules[post.sourcePath];
   if (!loader) return '';
   const raw = await loader();
-  const match = raw.match(/^---\n[\s\S]*?\n---\n([\s\S]*)$/);
-  return (match?.[1] ?? raw).trim();
+  const match = raw.match(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---\r?\n([\s\S]*)$/);
+  const content = (match?.[1] ?? raw).trim();
+  const heading = content.match(/^#\s+(.+)\r?\n+/);
+  return heading?.[1].trim() === post.title ? content.slice(heading[0].length).trim() : content;
 }
 
 export function formatDate(date: string) {

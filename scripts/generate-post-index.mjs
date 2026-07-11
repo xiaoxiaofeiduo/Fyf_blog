@@ -28,11 +28,11 @@ function uniqueTags(tags) {
 }
 
 function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const match = raw.match(/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) return { meta: new Map(), body: raw };
 
   const meta = new Map();
-  match[1].split('\n').forEach((line) => {
+  match[1].split(/\r?\n/).forEach((line) => {
     const index = line.indexOf(':');
     if (index === -1) return;
     meta.set(line.slice(0, index).trim(), line.slice(index + 1).trim());

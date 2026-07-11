@@ -10,6 +10,8 @@ interface PostCardProps {
 export function PostCard({ post, compact = false }: PostCardProps) {
   const location = useLocation();
   const isFromPostsPage = location.pathname === '/posts';
+  const missionId = [...post.slug].reduce((total, char) => total + char.charCodeAt(0), 0) % 1000;
+  const accessLevel = post.category === '安全研究' ? 'LEVEL A' : post.category === 'AI 实践' ? 'LEVEL B' : 'LEVEL C';
 
   return (
     <Link
@@ -19,7 +21,10 @@ export function PostCard({ post, compact = false }: PostCardProps) {
     >
       <article className={`post-card ${compact ? 'post-card-compact' : ''}`}>
         <span className="post-card-beam" aria-hidden="true" />
-        {post.category && <span className="post-card-category">{post.category}</span>}
+        <div className="post-card-classification">
+          {post.category && <span className="post-card-category">{post.category}</span>}
+          <code>FILE-{String(missionId).padStart(3, '0')} / {accessLevel}</code>
+        </div>
         <div className="post-card-topline">
           <time
             className="post-published-at"
