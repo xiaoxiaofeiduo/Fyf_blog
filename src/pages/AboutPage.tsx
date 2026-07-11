@@ -65,6 +65,12 @@ const focusAreas: Array<{ icon: LucideIcon; title: string; text: string }> = [
 
 const methods = ['先复现，再判断', '先证据，再结论', '先可读，再完整', '先实践，再抽象'];
 
+const profileFacts = [
+  { label: 'ROLE', value: '测试与安全工程' },
+  { label: 'FOCUS', value: '质量 · 安全 · AI' },
+  { label: 'OUTPUT', value: '验证方案与工程笔记' },
+];
+
 const pilotAvatarUrl = `${import.meta.env.BASE_URL}pilot-avatar.png?v=gn00-pilot-2`;
 
 const timeline = [
@@ -89,15 +95,15 @@ const timeline = [
 const faqItems = [
   {
     question: '这个博客主要写什么？',
-    answer: '主要记录安全测试、防护验证、大模型安全、系统运维和测试工程实践，内容尽量来自真实问题和可复用经验。',
+    answer: '围绕安全测试、大模型安全、系统运维和质量工程，记录真实问题的现象、定位路径、验证方法与最终结论。',
   },
   {
     question: '为什么叫测试日志？',
-    answer: '因为这里更像一份持续更新的工程记录：保留现象、命令、判断依据、验证过程和结论，方便之后复盘。',
+    answer: '这里不是知识点的简单集合，而是一份持续更新的工程记录。每篇文章尽量保留上下文、证据与判断过程，方便复盘和复用。',
   },
   {
     question: '这个博客如何新增文章？',
-    answer: '可以在 src/content/posts 下新增单个 Markdown，也可以新建一个文件夹，在文件夹内放 Markdown 和图片资源。',
+    answer: '文章采用 Markdown 管理，按安全研究、AI 实践、系统运维、功能测试和性能测试分类，配套图片与资料和正文放在一起。',
   },
 ];
 
@@ -249,19 +255,36 @@ export function AboutPage() {
           <span className="eyebrow">About</span>
           <h1>关于云飞</h1>
           <p>
-            这里是云飞的技术创作空间，聚焦 Web 应用安全防护、大模型安全防护、系统运维和软件测试工程实践。
-            我会把真实项目里的排查过程、验证方法和复盘结论整理成长期可读的测试日志。
+            我是一名关注质量、安全与工程效率的软件测试工程师。这里记录真实项目中遇到的问题，
+            以及我如何复现现象、寻找证据、验证方案并沉淀结论。
           </p>
+          <div className="about-intro-tags" aria-label="关注方向">
+            <span>Web 安全</span><span>大模型安全</span><span>测试工程</span><span>系统可靠性</span>
+          </div>
         </div>
         <Card className="about-profile-card" color="app-yellow">
-          <span className="profile-avatar-shell" aria-hidden="true">
-            <img src={pilotAvatarUrl} alt="" />
-          </span>
-          <strong>软件测试工程师</strong>
-          <span>关注风险识别、防护验证、质量体系与工程效率</span>
+          <div className="about-profile-main">
+            <span className="profile-avatar-shell" aria-hidden="true">
+              <img src={pilotAvatarUrl} alt="" />
+            </span>
+            <div>
+              <span className="about-profile-status"><i /> GN SYSTEM ONLINE</span>
+              <strong>云飞</strong>
+              <p>软件测试工程师</p>
+            </div>
+          </div>
+          <dl className="about-profile-meta">
+            {profileFacts.map((fact) => (
+              <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+            ))}
+          </dl>
         </Card>
       </div>
 
+      <div className="about-section-heading">
+        <span className="eyebrow">01 / Capabilities</span>
+        <div><h2>关注领域</h2><p>围绕风险、质量和效率建立可执行的验证能力。</p></div>
+      </div>
       <div className="about-grid about-focus-grid">
         {focusAreas.map((area, index) => {
           const AreaIcon = area.icon;
@@ -281,12 +304,16 @@ export function AboutPage() {
         })}
       </div>
 
+      <div className="about-section-heading">
+        <span className="eyebrow">02 / Workflow</span>
+        <div><h2>工作方法</h2><p>从问题现场出发，形成有证据、能复现、可复用的完整闭环。</p></div>
+      </div>
       <section className="about-method-section">
         <Card className="about-method-card">
           <span className="eyebrow">Method</span>
-          <h2>我的工作方法</h2>
+          <h2>把不确定变成证据链</h2>
           <p>
-            测试不是简单地执行用例，而是把不确定的问题变成可以解释、可以验证、可以复用的证据链。
+            测试不只是执行用例。更重要的是理解系统、提出假设，并用可重复的实验确认风险和改进是否真实有效。
           </p>
           <div className="method-list">
             {methods.map((method) => (
@@ -296,10 +323,10 @@ export function AboutPage() {
         </Card>
 
         <div className="about-timeline">
-          {timeline.map((item) => (
+          {timeline.map((item, index) => (
             <Card key={item.label} className="timeline-item">
-              <strong>{item.label}</strong>
-              <p>{item.text}</p>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div><strong>{item.label}</strong><p>{item.text}</p></div>
             </Card>
           ))}
         </div>
@@ -307,6 +334,10 @@ export function AboutPage() {
 
       <HudDivider />
 
+      <div className="about-section-heading about-section-heading-compact">
+        <span className="eyebrow">03 / Notes</span>
+        <div><h2>关于这份日志</h2><p>它如何组织内容，以及为什么持续记录。</p></div>
+      </div>
       <div className="faq-list">
         {faqItems.map((item, index) => (
           <details className="faq-hud-item" key={item.question} open={index === 0}>
@@ -327,7 +358,8 @@ export function AboutPage() {
           <div className="ip-lookup-heading">
             <div>
               <span className="eyebrow">IP Lookup</span>
-              <h2>IP地址</h2>
+              <h2>网络出口检测</h2>
+              <p>查看当前网络公开可见的 IPv4 / IPv6 出口信息，仅在浏览器中实时查询。</p>
             </div>
             <Button type="primary" onClick={() => void fetchIpInfo()} loading={ipState.loading}>
               重新检测
