@@ -13,5 +13,5 @@ export function ArticleToc({ headings }: { headings: ArticleHeading[] }) {
     return () => observer.disconnect();
   }, [headings]);
   if (headings.length < 2) return null;
-  return <aside className="article-toc" aria-label="文章目录"><small>MISSION PHASE</small><strong>章节导航</strong><nav>{headings.map((item, index) => <a key={`${item.id}-${index}`} className={`${item.level === 3 ? 'toc-sub' : ''} ${active === item.id ? 'toc-active' : ''}`} href={`#${item.id}`}><i />{item.text}</a>)}</nav></aside>;
+  return <aside className="article-toc" aria-label="文章目录"><small>MISSION PHASE</small><strong>章节导航</strong><nav>{headings.map((item, index) => <button key={`${item.id}-${index}`} type="button" className={`${item.level === 3 ? 'toc-sub' : ''} ${active === item.id ? 'toc-active' : ''}`} onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}><i />{item.text}</button>)}</nav></aside>;
 }
