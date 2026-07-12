@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Card } from 'animal-island-ui';
 import { LocateFixed } from 'lucide-react';
 import { HudDivider } from '../components/HudDivider';
 import { SignalMarquee } from '../components/SignalMarquee';
 import { ReadingProgress } from '../components/ReadingProgress';
+import { ArticleToc } from '../components/ArticleToc';
+import { extractHeadings } from '../lib/headings';
 import { formatDate, getPostBySlug, loadPostContent, posts } from '../lib/posts';
 import { postAssetMap } from '../lib/post-assets';
 import { renderMarkdown } from '../lib/markdown';
@@ -44,6 +46,7 @@ export function PostDetailPage() {
   const post = getPostBySlug(slug);
   const [content, setContent] = useState('');
   const [isLoadingContent, setIsLoadingContent] = useState(Boolean(post));
+  const headings = useMemo(() => extractHeadings(content), [content]);
 
   const returnToPosts = () => {
     if ((location.state as { fromPostsList?: boolean } | null)?.fromPostsList) {
@@ -105,6 +108,7 @@ export function PostDetailPage() {
   return (
     <article className="article-page mission-page-background article-page-background">
       <ReadingProgress />
+      <ArticleToc headings={headings} />
       <button className="floating-back-link" type="button" onClick={returnToPosts}>
         <span className="floating-back-icon" aria-hidden="true">
           <LocateFixed size={16} strokeWidth={1.7} />

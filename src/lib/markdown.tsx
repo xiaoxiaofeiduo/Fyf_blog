@@ -1,9 +1,18 @@
 import ReactMarkdown, { type Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import { isValidElement, type ReactNode } from 'react';
+import { headingId } from './headings';
 
 function normalizeUrl(value: string) {
   return value.trim().replace(/^<(.+)>$/, '$1');
+}
+
+function nodeText(node: ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(nodeText).join('');
+  if (isValidElement<{ children?: ReactNode }>(node)) return nodeText(node.props.children);
+  return '';
 }
 
 export function renderMarkdown(
@@ -14,6 +23,12 @@ export function renderMarkdown(
   let imageIndex = 0;
 
   const components: Components = {
+    h2({ children, ...props }) {
+      return <h2 {...props} id={headingId(nodeText(children))}>{children}</h2>;
+    },
+    h3({ children, ...props }) {
+      return <h3 {...props} id={headingId(nodeText(children))}>{children}</h3>;
+    },
     a({ href, children, ...props }) {
       const normalizedHref = href ? normalizeUrl(href) : undefined;
       const resolvedHref = normalizedHref ? (resolveLink(normalizedHref) ?? normalizedHref) : undefined;

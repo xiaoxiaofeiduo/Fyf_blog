@@ -1,8 +1,10 @@
-import { lazy, Suspense } from 'react';
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useState } from 'react';
+import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Radar } from 'lucide-react';
 import { GitHubStar } from './components/GitHubStar';
 import { CelestialAmbient } from './components/CelestialAmbient';
+import { GnParticleCanvas } from './components/GnParticleCanvas';
+import { MotionToggle } from './components/MotionSystem';
 import { HomePage } from './pages/HomePage';
 import { posts } from './lib/posts';
 
@@ -20,12 +22,15 @@ const siteAvatarUrl = `${import.meta.env.BASE_URL}gn00-site-avatar.webp?v=gn00-s
 
 export function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [transAm, setTransAm] = useState(false);
   const categories = new Set(posts.map((post) => post.category).filter(Boolean)).size;
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${transAm ? 'trans-am-active' : ''}`}>
       <CelestialAmbient />
-      <div className="route-scan" key={location.pathname} aria-hidden="true"><i /></div>
+      <GnParticleCanvas />
+      <div className="route-scan" key={location.pathname} data-channel={location.pathname === '/' ? 'GN-00 HOME LINK' : location.pathname === '/about' ? 'PTOLEMAIOS CREW FILE' : 'VEDA ARCHIVE CHANNEL'} aria-hidden="true"><i /></div>
       <header className="site-header">
         <NavLink to="/" className="brand" aria-label="返回首页">
           <span className="brand-mark brand-avatar brand-gundam-avatar" aria-hidden="true">
@@ -53,13 +58,19 @@ export function App() {
         </nav>
 
         <GitHubStar />
+        <MotionToggle />
 
-        <Link className="header-action" to="/posts">
-          <span>启动任务</span>
+        <button className="header-action" type="button" onClick={() => {
+          if (transAm) return;
+          setTransAm(true);
+          window.setTimeout(() => navigate('/posts'), 700);
+          window.setTimeout(() => setTransAm(false), 3200);
+        }}>
+          <span>{transAm ? 'TRANS-AM' : '启动任务'}</span>
           <span className="hud-action-icon" aria-hidden="true">
             <Radar size={14} strokeWidth={1.7} />
           </span>
-        </Link>
+        </button>
       </header>
 
       <main>

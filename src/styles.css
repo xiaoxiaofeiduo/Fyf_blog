@@ -262,6 +262,118 @@ a:focus-visible {
   .gn-particle-field i { animation: none; }
 }
 
+/* Interactive GN motion system */
+.gn-particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 16;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: .72;
+}
+
+.motion-toggle {
+  min-height: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(85, 242, 255, .2);
+  border-radius: 2px;
+  color: var(--cyan);
+  background: rgba(2, 16, 34, .75);
+  cursor: pointer;
+  font-size: 9px;
+}
+
+.motion-toggle:hover { border-color: rgba(98, 255, 173, .55); color: var(--green); }
+
+.route-scan::before { content: attr(data-channel) " / DECODING"; }
+.route-scan::after {
+  content: "";
+  position: absolute;
+  inset: 35% 12%;
+  border-block: 1px solid rgba(85, 242, 255, .18);
+  background: repeating-linear-gradient(90deg, transparent 0 48px, rgba(85, 242, 255, .08) 49px, transparent 50px);
+  animation: route-data-decode 620ms ease-out forwards;
+}
+
+@keyframes route-data-decode {
+  from { opacity: 0; transform: scaleX(.45); }
+  45% { opacity: 1; }
+  to { opacity: 0; transform: scaleX(1); }
+}
+
+.trans-am-active main::after {
+  content: "TRANS-AM / OVERDRIVE";
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: rgba(255, 230, 230, .9);
+  background: linear-gradient(115deg, transparent 28%, rgba(255, 25, 53, .17) 49%, transparent 70%);
+  box-shadow: inset 0 0 130px rgba(255, 25, 53, .28);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(18px, 3vw, 42px);
+  letter-spacing: .25em;
+  text-shadow: 0 0 24px var(--danger);
+  animation: trans-am-burst 3.2s ease-out forwards;
+}
+
+.trans-am-active .header-action { color: #fff; background: var(--danger); box-shadow: 0 0 30px rgba(255, 77, 93, .6); }
+
+@keyframes trans-am-burst {
+  0% { opacity: 0; transform: scale(1.08); }
+  12%, 48% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; }
+}
+
+.article-toc {
+  position: fixed;
+  top: 170px;
+  right: max(14px, calc((100vw - 1500px) / 2));
+  z-index: 24;
+  width: 180px;
+  max-height: calc(100vh - 220px);
+  padding: 14px;
+  overflow: auto;
+  border-left: 1px solid rgba(85, 242, 255, .28);
+  color: var(--muted);
+  background: rgba(2, 14, 29, .72);
+  backdrop-filter: blur(12px);
+}
+
+.article-toc > small { display: block; color: var(--cyan); font-size: 7px; letter-spacing: .15em; }
+.article-toc > strong { display: block; margin: 6px 0 12px; color: var(--text); font-size: 13px; }
+.article-toc nav { display: grid; gap: 3px; }
+.article-toc a { padding: 6px 5px; display: flex; align-items: flex-start; gap: 7px; font-size: 9px; line-height: 1.5; transition: color .2s, background .2s; }
+.article-toc a i { width: 4px; height: 4px; margin-top: 5px; flex: none; background: rgba(85, 242, 255, .35); transform: rotate(45deg); }
+.article-toc .toc-sub { padding-left: 17px; font-size: 8px; }
+.article-toc .toc-active { color: var(--green); background: rgba(98, 255, 173, .06); }
+.article-toc .toc-active i { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.article-content h2, .article-content h3 { scroll-margin-top: 110px; }
+
+@media (min-width: 921px) {
+  .hero-cockpit-frame { translate: var(--pointer-x, 0) var(--pointer-y, 0); transition: translate 180ms ease-out; }
+  .unit-status-panel { translate: var(--pointer-x-reverse, 0) var(--pointer-y-reverse, 0); transition: translate 220ms ease-out; }
+}
+
+@media (max-width: 1450px) { .article-toc { display: none; } }
+@media (max-width: 920px) { .motion-toggle span { display: none; } .motion-toggle { padding: 0 8px; } }
+
+html[data-motion="lite"] .gn-particle-canvas { opacity: .38; }
+html[data-motion="lite"] .hero-cockpit-frame { translate: 0 0; }
+html[data-motion="lite"] .mission-page-background::after,
+html[data-motion="lite"] .hero-section::after { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-particle-canvas { display: none; }
+  .route-scan::after,
+  .trans-am-active main::after { animation: none; }
+}
+
 .site-header {
   width: min(1240px, calc(100% - 40px));
   height: 66px;
@@ -2587,7 +2699,9 @@ body::before {
   background-position: var(--hero-background-position);
   background-size: cover;
   filter: saturate(0.92) contrast(1.05);
-  animation: hero-focus 12s ease-in-out infinite alternate;
+  will-change: transform, filter;
+  transform-origin: 68% 52%;
+  animation: hero-mecha-drift 16s cubic-bezier(.45, 0, .55, 1) infinite alternate;
 }
 
 /* Give wide displays enough height to stay close to the artwork's 16:9 ratio.
@@ -2609,8 +2723,11 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
+    linear-gradient(108deg, transparent 38%, rgba(85, 242, 255, 0.08) 49.5%, rgba(98, 255, 173, 0.18) 50%, transparent 50.5% 100%),
     linear-gradient(90deg, rgba(1, 8, 20, 0.98) 0%, rgba(2, 12, 27, 0.92) 30%, rgba(2, 11, 24, 0.36) 58%, rgba(2, 9, 22, 0.08) 78%),
     linear-gradient(180deg, rgba(2, 9, 22, 0.12), transparent 60%, var(--bg));
+  background-size: 220% 100%, 100% 100%, 100% 100%;
+  animation: hero-hud-sweep 9s linear infinite;
 }
 
 /* Share the home hero's mobile-suit atmosphere across archive/content pages. */
@@ -2663,13 +2780,20 @@ body::before {
   background-repeat: no-repeat;
   opacity: var(--mission-background-opacity);
   filter: saturate(0.88) contrast(1.08);
+  will-change: transform, filter;
+  transform-origin: 70% 52%;
+  animation: mission-mecha-drift 20s cubic-bezier(.45, 0, .55, 1) infinite alternate;
 }
 
 .mission-page-background::after {
   z-index: -2;
   background:
+    repeating-linear-gradient(180deg, transparent 0 8px, rgba(85, 242, 255, 0.012) 9px, transparent 10px),
+    linear-gradient(112deg, transparent 42%, rgba(85, 242, 255, 0.055) 49.6%, rgba(98, 255, 173, 0.13) 50%, transparent 50.5%),
     linear-gradient(90deg, rgba(2, 9, 22, 0.72), rgba(2, 12, 27, 0.38) 48%, rgba(2, 9, 22, 0.48)),
     linear-gradient(180deg, rgba(2, 9, 22, 0.12), rgba(2, 9, 22, 0.42));
+  background-size: 100% 100%, 240% 100%, 100% 100%, 100% 100%;
+  animation: mission-hud-sweep 12s linear infinite;
 }
 
 @media (max-width: 768px) {
@@ -2939,9 +3063,45 @@ body::before {
   border-color: rgba(85, 242, 255, 0.16);
 }
 
-@keyframes hero-focus {
-  from { transform: scale(1); }
-  to { transform: scale(1.025); }
+@keyframes hero-mecha-drift {
+  0% {
+    transform: scale(1.025) translate3d(-0.35%, 0.25%, 0);
+    filter: saturate(0.9) contrast(1.05) brightness(0.94);
+  }
+  48% {
+    transform: scale(1.045) translate3d(0.45%, -0.3%, 0);
+    filter: saturate(0.98) contrast(1.08) brightness(1.02);
+  }
+  100% {
+    transform: scale(1.065) translate3d(-0.15%, -0.65%, 0);
+    filter: saturate(1.03) contrast(1.08) brightness(0.97);
+  }
+}
+
+@keyframes mission-mecha-drift {
+  0% {
+    transform: scale(1.035) translate3d(-0.45%, 0.3%, 0);
+    filter: saturate(0.86) contrast(1.08) brightness(0.92);
+  }
+  50% {
+    transform: scale(1.055) translate3d(0.4%, -0.35%, 0);
+    filter: saturate(0.94) contrast(1.1) brightness(1.01);
+  }
+  100% {
+    transform: scale(1.075) translate3d(-0.15%, -0.7%, 0);
+    filter: saturate(0.9) contrast(1.12) brightness(0.96);
+  }
+}
+
+@keyframes hero-hud-sweep {
+  0% { background-position: 105% 0, center, center; }
+  100% { background-position: -115% 0, center, center; }
+}
+
+@keyframes mission-hud-sweep {
+  0% { background-position: center, 110% 0, center, center; opacity: .72; }
+  50% { opacity: 1; }
+  100% { background-position: center, -130% 0, center, center; opacity: .76; }
 }
 
 @keyframes gn-drift {
@@ -3080,4 +3240,13 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .route-scan { display: none; }
+  .hero-section::before,
+  .hero-section::after,
+  .mission-page-background::before,
+  .mission-page-background::after,
+  .gn-reticle,
+  .gn-particles i {
+    animation: none !important;
+    transform: none !important;
+  }
 }
