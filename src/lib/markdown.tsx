@@ -21,13 +21,20 @@ export function renderMarkdown(
   resolveLink: (url: string) => string | undefined = () => undefined
 ) {
   let imageIndex = 0;
+  const headingIds = new Map<string, number>();
+  const uniqueHeadingId = (text: string) => {
+    const baseId = headingId(text);
+    const count = headingIds.get(baseId) ?? 0;
+    headingIds.set(baseId, count + 1);
+    return count ? `${baseId}-${count + 1}` : baseId;
+  };
 
   const components: Components = {
     h2({ children, ...props }) {
-      return <h2 {...props} id={headingId(nodeText(children))}>{children}</h2>;
+      return <h2 {...props} id={uniqueHeadingId(nodeText(children))}>{children}</h2>;
     },
     h3({ children, ...props }) {
-      return <h3 {...props} id={headingId(nodeText(children))}>{children}</h3>;
+      return <h3 {...props} id={uniqueHeadingId(nodeText(children))}>{children}</h3>;
     },
     a({ href, children, ...props }) {
       const normalizedHref = href ? normalizeUrl(href) : undefined;

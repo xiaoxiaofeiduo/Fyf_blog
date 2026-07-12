@@ -332,25 +332,30 @@ a:focus-visible {
 
 .article-toc {
   position: fixed;
-  top: 170px;
-  right: max(14px, calc((100vw - 1500px) / 2));
+  top: 150px;
+  right: max(18px, calc((100vw - 1120px) / 2 - 244px));
   z-index: 24;
-  width: 180px;
-  max-height: calc(100vh - 220px);
-  padding: 14px;
+  width: 220px;
+  max-height: calc(100vh - 190px);
+  padding: 16px 14px 18px;
   overflow: auto;
   border-left: 1px solid rgba(85, 242, 255, .28);
+  border-block: 1px solid rgba(85, 242, 255, .1);
   color: var(--muted);
-  background: rgba(2, 14, 29, .72);
+  background: linear-gradient(135deg, rgba(35, 104, 217, .08), transparent 48%), rgba(2, 14, 29, .88);
   backdrop-filter: blur(12px);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(85, 242, 255, .35) transparent;
 }
 
 .article-toc > small { display: block; color: var(--cyan); font-size: 7px; letter-spacing: .15em; }
 .article-toc > strong { display: block; margin: 6px 0 12px; color: var(--text); font-size: 13px; }
 .article-toc nav { display: grid; gap: 3px; }
-.article-toc a { padding: 6px 5px; display: flex; align-items: flex-start; gap: 7px; font-size: 9px; line-height: 1.5; transition: color .2s, background .2s; }
-.article-toc a i { width: 4px; height: 4px; margin-top: 5px; flex: none; background: rgba(85, 242, 255, .35); transform: rotate(45deg); }
-.article-toc .toc-sub { padding-left: 17px; font-size: 8px; }
+.article-toc button { width: 100%; padding: 7px 6px; display: flex; align-items: flex-start; gap: 8px; border: 0; color: inherit; background: transparent; cursor: pointer; text-align: left; font-size: 11px; line-height: 1.45; transition: color .2s, background .2s; }
+.article-toc button:hover { color: var(--text); background: rgba(85, 242, 255, .05); }
+.article-toc button i { width: 4px; height: 4px; margin-top: 5px; flex: none; background: rgba(85, 242, 255, .35); transform: rotate(45deg); }
+.article-toc .toc-sub { padding-left: 20px; color: rgba(147, 172, 193, .78); font-size: 10px; }
 .article-toc .toc-active { color: var(--green); background: rgba(98, 255, 173, .06); }
 .article-toc .toc-active i { background: var(--green); box-shadow: 0 0 8px var(--green); }
 .article-content h2, .article-content h3 { scroll-margin-top: 110px; }
@@ -360,7 +365,7 @@ a:focus-visible {
   .unit-status-panel { translate: var(--pointer-x-reverse, 0) var(--pointer-y-reverse, 0); transition: translate 220ms ease-out; }
 }
 
-@media (max-width: 1450px) { .article-toc { display: none; } }
+@media (max-width: 1620px) { .article-toc { display: none; } }
 @media (max-width: 920px) { .motion-toggle span { display: none; } .motion-toggle { padding: 0 8px; } }
 
 html[data-motion="lite"] .gn-particle-canvas { opacity: .38; }
