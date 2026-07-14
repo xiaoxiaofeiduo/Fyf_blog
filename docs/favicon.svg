@@ -1,6 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="2" y="2" width="60" height="60" rx="10" fill="#020916" stroke="#55f2ff" stroke-width="3"/>
-  <path d="M10 21V11h10M44 11h10v10M54 43v10H44M20 53H10V43" fill="none" stroke="#62ffad" stroke-width="2" opacity=".82"/>
-  <text x="32" y="41" fill="#f3f8ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="900" text-anchor="middle">00</text>
-  <circle cx="53" cy="11" r="3" fill="#62ffad"/>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123d31"/>
+      <stop offset="1" stop-color="#041611"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="20" y1="13" x2="45" y2="49" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff2a8"/>
+      <stop offset=".48" stop-color="#d9bd62"/>
+      <stop offset="1" stop-color="#8e6d26"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.35" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#bg)" stroke="#6be8ca" stroke-width="2"/>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="#6be8ca" stroke-width="1" opacity=".2"/>
+  <path d="M32 9 20.5 29h23L32 9Z" fill="url(#gold)" filter="url(#glow)"/>
+  <path d="m20 30-11.5 20h23L20 30Zm24 0L32.5 50h23L44 30Z" fill="url(#gold)" filter="url(#glow)"/>
+  <path d="M32 14.5 23.7 29h16.6L32 14.5ZM20 35.5 13.7 47h12.6L20 35.5Zm24 0L37.7 47h12.6L44 35.5Z" fill="#f8e69a" opacity=".3"/>
 </svg>

@@ -1,140 +1,97 @@
 import { Link } from 'react-router-dom';
-import { DatabaseZap, RadioTower, ScanFace } from 'lucide-react';
+import { ArrowDown, BookOpen, Compass, Sparkles } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
+import { KorokSpot } from '../components/KorokSpot';
 import { posts } from '../lib/posts';
 
-const heroHighlights = ['GN SECURITY', 'LLM INTERCEPT', 'SYSTEM CONTROL', 'QUALITY DRIVE'];
-const latestPosts = posts.slice(0, 3);
-const categories = new Set(posts.map((post) => post.category).filter(Boolean)).size;
-
-const focusAreas = [
-  {
-    index: 'GN-01',
-    title: 'Web 安全防护',
-    text: '从漏洞复现到防护回归，把风险拆成可验证、可追踪的测试场景。',
-    signal: 'EXIA / ATTACK SURFACE',
-  },
-  {
-    index: 'GN-02',
-    title: '大模型安全',
-    text: '关注提示注入、越权调用、数据泄露与智能体应用安全边界。',
-    signal: 'DYNAMES / MODEL GUARD',
-  },
-  {
-    index: 'GN-03',
-    title: '系统可靠性',
-    text: '覆盖部署、监控、性能与故障定位，为持续运行提供可观测证据。',
-    signal: 'KYRIOS / SYSTEM OPS',
-  },
-  {
-    index: 'GN-04',
-    title: '测试工程',
-    text: '沉淀自动化验证、风险评估、质量度量和复杂问题定位方法。',
-    signal: 'VIRTUE / QUALITY OPS',
-  },
+const latestPosts = posts.slice(0, 4);
+const regions = [
+  { code: '01', name: '阿卡莱', category: '安全研究', hint: '识别攻击面，守住王国边界。' },
+  { code: '02', name: '拉聂尔', category: 'AI 实践', hint: '沿智慧之泉探索模型边界。' },
+  { code: '03', name: '海布拉', category: '系统运维', hint: '在风雪中维持系统的火种。' },
+  { code: '04', name: '费罗尼', category: '功能测试', hint: '穿过密林，验证每条隐秘路径。' },
+  { code: '05', name: '格鲁德', category: '性能测试', hint: '在极端环境中证明系统韧性。' },
 ];
 
 export function HomePage() {
   return (
     <>
-      <section className="hero-section">
-        <div className="hero-cockpit-frame" aria-hidden="true">
-          <span className="cockpit-corner cockpit-corner-one" />
-          <span className="cockpit-corner cockpit-corner-two" />
-          <div className="gn-reticle"><i /><i /><i /></div>
-          <div className="gn-particles"><i /><i /><i /><i /><i /><i /></div>
-        </div>
-        <div className="hero-copy">
-          <span className="eyebrow"><i /> GN-00 // SYSTEM LINK ESTABLISHED</span>
-          <h1>连接工程真相<br /><span>改变既定未来</span></h1>
-          <p>
-            以测试为观测系统，以证据为推进器。记录 Web 攻防、大模型安全、系统运维与质量工程，
-            将每一次问题定位转化为可复用的技术坐标。
-          </p>
-          <div className="hero-highlights" aria-label="博客关注方向">
-            {heroHighlights.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
-          <div className="hero-actions">
-            <Link className="tech-button tech-button-primary" to="/posts">
-              GN 数据库
-              <span className="hud-action-icon" aria-hidden="true">
-                <DatabaseZap size={15} strokeWidth={1.7} />
-              </span>
-            </Link>
-            <Link className="tech-button" to="/about">
-              驾驶员档案
-              <span className="hud-action-icon" aria-hidden="true">
-                <ScanFace size={15} strokeWidth={1.7} />
-              </span>
-            </Link>
+      <section className="sky-awakening" role="img" aria-label="林克站在空岛边缘眺望海拉鲁">
+        <div className="sky-copy">
+          <span className="world-kicker">THE SKY IS CALLING · 2026</span>
+          <h1>从天空坠落<br /><em>向知识而生</em></h1>
+          <p>跟随林克越过空岛与遗迹，在塞尔达留下的光芒中，把每次测试、攻防和故障定位写成可以再次抵达的坐标。</p>
+          <div className="sky-actions">
+            <Link to="/posts" className="adventure-button"><Compass size={17} />展开海拉鲁地图</Link>
+            <Link to="/about" className="quiet-link">查看旅人档案</Link>
           </div>
         </div>
+        <div className="sky-coordinate" aria-hidden="true"><span>SKY ISLAND 03</span><strong>0412 · 1735 · 2280</strong></div>
+        <button
+          type="button"
+          className="dive-cue"
+          onClick={() => document.getElementById('fall-memory')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <span>从空岛跃下</span><ArrowDown size={18} />
+        </button>
+      </section>
 
-        <div className="hero-visual" aria-label="GN 驱动机甲状态面板">
-          <div className="unit-status-panel">
-            <div><span>UNIT</span><strong>GN-00 / YF</strong></div>
-            <div><span>GN DRIVE</span><strong className="status-ready">STABLE</strong></div>
-            <div><span>MISSION</span><strong>QUALITY INTERVENTION</strong></div>
-            <div className="trans-am-line"><span>TRANS-AM</span><strong>STANDBY</strong></div>
-          </div>
-          <span className="status-chip status-chip-top">TARGET / KNOWLEDGE</span>
-          <span className="status-chip status-chip-bottom">GN PARTICLES / 97.4%</span>
+      <section className="fall-memory" id="fall-memory" aria-label="林克与塞尔达的坠落记忆">
+        <div className="fall-sticky">
+          <div className="fall-art" role="img" aria-label="林克伸手追向坠落的塞尔达" />
+          <div className="memory-copy memory-copy-courage"><span>勇气 / COURAGE</span><h2>伸出手，<br />即使答案仍在坠落。</h2></div>
+          <div className="memory-copy memory-copy-wisdom"><span>智慧 / WISDOM</span><p>问题不是终点。记录证据、验证假设、复盘路径，让每一次坠落都成为下一次上升的能力。</p></div>
+          <div className="memory-rune" aria-hidden="true"><i /><i /><i /></div>
         </div>
       </section>
 
-      <section className="metrics-strip" aria-label="博客数据">
-        <div><small>MISSION RECORDS</small><strong>{String(posts.length).padStart(2, '0')}</strong><span>技术文章</span><i className="metric-wave" /></div>
-        <div><small>TACTICAL DOMAINS</small><strong>{String(categories).padStart(2, '0')}</strong><span>知识领域</span><i className="metric-wave" /></div>
-        <div><small>SYSTEM INTEGRITY</small><strong>97.4%</strong><span>GN 粒子浓度</span><i className="metric-wave" /></div>
-        <div className="metrics-line"><span>VEDA LINK</span><i /></div>
+      <section className="map-journey">
+        <header className="journey-heading">
+          <span className="world-kicker">PURAH PAD · REGIONAL MAP</span>
+          <h2>选择下一片探索区域</h2>
+          <p>知识不按卡片排列，它散落在海拉鲁的山谷、雪原与遗迹之中。</p>
+        </header>
+
+        <div className="region-map">
+          <div className="route-line" aria-hidden="true" />
+          {regions.map((region, index) => {
+            const count = posts.filter((post) => post.category === region.category).length;
+            return (
+              <Link
+                className={`region-marker region-marker-${index + 1}`}
+                key={region.name}
+                to={`/posts?tag=${encodeURIComponent(region.category)}`}
+              >
+                <span className="marker-orbit" aria-hidden="true"><i /></span>
+                <small>REGION {region.code}</small>
+                <strong>{region.name}</strong>
+                <em>{region.category} · {count} 篇</em>
+                <p>{region.hint}</p>
+              </Link>
+            );
+          })}
+          <KorokSpot id="map-korok" label="检查地图边缘的树叶" />
+        </div>
       </section>
 
-      <section className="section-block">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow"><i /> VEDA / LATEST RECORDS</span>
-            <h2>最新任务记录</h2>
+      <section className="sword-memories">
+        <header className="sword-heading">
+          <span className="world-kicker">MASTER SWORD · RESTORED MEMORIES</span>
+          <h2>大师之剑铭刻的最近记忆</h2>
+          <Link to="/posts">查看全部日志 <BookOpen size={16} /></Link>
+        </header>
+        <div className="memory-timeline">
+          <div className="memory-posts">
+            {latestPosts.map((post, index) => <PostCard key={post.slug} post={post} compact={index > 1} />)}
           </div>
-          <Link className="section-link" to="/posts">
-            查看全部文章
-            <span className="hud-action-icon" aria-hidden="true">
-              <RadioTower size={13} strokeWidth={1.7} />
-            </span>
-          </Link>
-        </div>
-        <div className="post-grid">
-          {latestPosts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
         </div>
       </section>
 
-      <section className="focus-section">
-        <div className="focus-intro">
-          <span className="eyebrow"><i /> TACTICAL CONFIGURATION</span>
-          <h2>四套核心<br />作战模块</h2>
-          <p>从攻击面到质量体系，关注问题如何发生，更关注防线如何被证明确实有效。</p>
-          <div className="focus-scan" aria-hidden="true">
-            <span /><span /><span /><span /><span />
-          </div>
-        </div>
-        <div className="focus-grid">
-          {focusAreas.map((area) => (
-            <article className="focus-card" key={area.index}>
-              <div className="focus-card-top"><span>{area.index}</span><code>{area.signal}</code></div>
-              <h3>{area.title}</h3>
-              <p>{area.text}</p>
-              <div className="focus-card-signal"><i /><i /><i /><i /></div>
-            </article>
-          ))}
-        </div>
+      <section className="forest-callout">
+        <div><Sparkles size={20} /><span>YAHAHA FOREST</span></div>
+        <h2>旅途中似乎有树叶在动。</h2>
+        <p>四只呀哈哈藏在天空、地图、档案与营火附近。找到它们，留下属于你的探索记录。</p>
       </section>
-
-      <div className="signal-marquee" aria-hidden="true">
-        <div>GN DRIVE <span>◆</span> SECURITY INTERVENTION <span>◆</span> TRANS-AM <span>◆</span> QUALITY ENGINEERING <span>◆</span> GN DRIVE <span>◆</span> SECURITY INTERVENTION <span>◆</span> TRANS-AM <span>◆</span> QUALITY ENGINEERING <span>◆</span></div>
-      </div>
     </>
   );
 }
