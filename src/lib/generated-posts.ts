@@ -2,6 +2,25 @@
 
 export const generatedPosts = [
   {
+    "slug": "AI-实践-vLLM模型加载失败排查记录_NVML_Unknown_Error",
+    "sourcePath": "../content/posts/AI 实践/vLLM模型加载失败排查记录_NVML_Unknown_Error.md",
+    "category": "AI 实践",
+    "title": "vLLM 模型加载失败排查记录：Failed to infer device type 与 NVML Unknown Error",
+    "date": "2026-07-17",
+    "summary": "使用 vLLM 部署开源大模型时，Docker 容器无法初始化 NVML 导致启动失败的完整排查过程与解决方案。",
+    "tags": [
+      "AI 实践",
+      "vLLM",
+      "Docker",
+      "GPU",
+      "NVIDIA",
+      "故障排查"
+    ],
+    "cover": "app-blue",
+    "readingTime": "8 分钟",
+    "featured": false
+  },
+  {
     "slug": "系统运维-terminal-multifunction-guide",
     "sourcePath": "../content/posts/系统运维/terminal-multifunction-guide.md",
     "category": "系统运维",
