@@ -2,6 +2,26 @@
 
 export const generatedPosts = [
   {
+    "slug": "AI-实践-deepseek-v4-copilot-multimodal-agent",
+    "sourcePath": "../content/posts/AI 实践/deepseek-v4-copilot-multimodal-agent/index.md",
+    "category": "AI 实践",
+    "title": "为 DeepSeek V4 补上视觉能力：Copilot Chat 视觉代理实践",
+    "date": "2026-07-28",
+    "summary": "DeepSeek V4 擅长推理和编码，却无法直接读取图片。本文通过 Copilot Chat 视觉代理补齐这一短板，并整理配置方法、适用场景、能力边界与验证清单。",
+    "tags": [
+      "AI 实践",
+      "DeepSeek V4",
+      "GitHub Copilot",
+      "VS Code",
+      "多模态Agent",
+      "视觉代理",
+      "Agent"
+    ],
+    "cover": "app-blue",
+    "readingTime": "7 分钟",
+    "featured": true
+  },
+  {
     "slug": "AI-实践-vLLM模型加载失败排查记录_NVML_Unknown_Error",
     "sourcePath": "../content/posts/AI 实践/vLLM模型加载失败排查记录_NVML_Unknown_Error.md",
     "category": "AI 实践",
