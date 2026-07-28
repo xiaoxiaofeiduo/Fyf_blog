@@ -1,6 +1,8 @@
+import { Children, isValidElement, type ReactNode } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import { MermaidDiagram } from '../components/MermaidDiagram';
 import { headingId } from './headings';
 
 type HastNode = {
@@ -81,6 +83,17 @@ export function renderMarkdown(
       );
     },
     pre({ children, ...props }) {
+      const child = Children.count(children) === 1 ? Children.only(children) : null;
+
+      if (isValidElement<{ className?: string; children?: ReactNode }>(child)) {
+        const languageClasses = child.props.className?.split(/\s+/) ?? [];
+
+        if (languageClasses.includes('language-mermaid')) {
+          const source = Children.toArray(child.props.children).join('').replace(/\n$/, '');
+          return <MermaidDiagram source={source} />;
+        }
+      }
+
       return (
         <pre {...props} className="article-code">
           {children}
