@@ -2,6 +2,26 @@
 
 export const generatedPosts = [
   {
+    "slug": "功能测试-blog_agent_intent_detection",
+    "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
+    "category": "功能测试",
+    "title": "从 Mock LLM 到 Agent 安全测试平台：五类风险的确定性验证实践",
+    "date": "2026-08-13",
+    "summary": "基于 agent_test_platform 最新代码，介绍如何用可控 tool_calls、YAML 场景、参数化专项测试和 Web 控制台，确定性验证意图偏离、资源耗尽、凭据泄漏、灾难性命令与不可信源执行防护。",
+    "tags": [
+      "功能测试",
+      "Agent安全",
+      "Mock LLM",
+      "自动化测试",
+      "Django",
+      "Tool Calling",
+      "黑盒测试"
+    ],
+    "cover": "app-teal",
+    "readingTime": "18 分钟",
+    "featured": false
+  },
+  {
     "slug": "AI-实践-deepseek-v4-copilot-multimodal-agent",
     "sourcePath": "../content/posts/AI 实践/deepseek-v4-copilot-multimodal-agent/index.md",
     "category": "AI 实践",
@@ -78,25 +98,6 @@ export const generatedPosts = [
     ],
     "cover": "app-teal",
     "readingTime": "10 分钟",
-    "featured": false
-  },
-  {
-    "slug": "功能测试-blog_agent_intent_detection",
-    "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
-    "category": "功能测试",
-    "title": "如何为 LLM Agent 安全检测构建 Mock 测试平台",
-    "date": "2026-06-10",
-    "summary": "介绍一套基于 Mock LLM + YAML 场景化用例 + Web 控制台的自动化测试方案，目前已沉淀 97 个测试用例，覆盖 11 个安全维度。",
-    "tags": [
-      "功能测试",
-      "Mock测试",
-      "LLM Agent",
-      "安全检测",
-      "自动化测试",
-      "Django"
-    ],
-    "cover": "app-teal",
-    "readingTime": "12 分钟",
     "featured": false
   },
   {
