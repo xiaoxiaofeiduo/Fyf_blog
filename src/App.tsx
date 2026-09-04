@@ -18,7 +18,7 @@ const navItems = [
   { to: '/about', label: '关于', code: '02' },
 ];
 
-const siteAvatarUrl = `${import.meta.env.BASE_URL}gn00-site-avatar.webp?v=gn00-site-1`;
+const siteAvatarUrl = `${import.meta.env.BASE_URL}avatar.jpg?v=profile-1`;
 
 export function App() {
   const location = useLocation();
@@ -33,7 +33,7 @@ export function App() {
       <div className="route-scan" key={location.pathname} data-channel={location.pathname === '/' ? 'GN-00 HOME LINK' : location.pathname === '/about' ? 'PTOLEMAIOS CREW FILE' : 'VEDA ARCHIVE CHANNEL'} aria-hidden="true"><i /></div>
       <header className="site-header">
         <NavLink to="/" className="brand" aria-label="返回首页">
-          <span className="brand-mark brand-avatar brand-gundam-avatar" aria-hidden="true">
+          <span className="brand-mark brand-avatar" aria-hidden="true">
             <img src={siteAvatarUrl} alt="" />
           </span>
           <span>
@@ -86,7 +86,7 @@ export function App() {
 
       <footer className="site-footer">
         <div>
-          <span className="brand-mark brand-avatar brand-gundam-avatar" aria-hidden="true">
+          <span className="brand-mark brand-avatar" aria-hidden="true">
             <img src={siteAvatarUrl} alt="" />
           </span>
           <p><strong>GN 测试日志</strong><small>记录、验证、沉淀。</small></p>

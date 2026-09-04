@@ -71,7 +71,7 @@ const profileFacts = [
   { label: 'OUTPUT', value: '验证方案与工程笔记' },
 ];
 
-const pilotAvatarUrl = `${import.meta.env.BASE_URL}pilot-avatar.png?v=gn00-pilot-2`;
+const pilotAvatarUrl = `${import.meta.env.BASE_URL}avatar.jpg?v=profile-1`;
 
 const timeline = [
   {

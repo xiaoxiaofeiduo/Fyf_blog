@@ -448,7 +448,6 @@ html[data-motion="lite"] .hero-section::after { animation: none; }
   display: block;
   object-fit: cover;
   object-position: 50% 30%;
-  filter: saturate(0.95) contrast(1.06);
 }
 
 .brand-gundam-avatar img {
