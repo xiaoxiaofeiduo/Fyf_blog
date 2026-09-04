@@ -18,7 +18,7 @@ const navItems = [
   { to: '/about', label: '旅人', icon: UserRound },
 ];
 
-const avatarUrl = `${import.meta.env.BASE_URL}traveler-avatar.jpg`;
+const avatarUrl = `${import.meta.env.BASE_URL}avatar.jpg?v=profile-1`;
 
 export function App() {
   const location = useLocation();
