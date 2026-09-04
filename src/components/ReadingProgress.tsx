@@ -21,7 +21,8 @@ export function ReadingProgress() {
   return (
     <div className="reading-progress" aria-label={`阅读进度 ${Math.round(progress)}%`}>
       <span style={{ width: `${progress}%` }} />
-      <code>GN READING LINK / {String(Math.round(progress)).padStart(3, '0')}%</code>
+      <i className="reading-sword" style={{ left: `${progress}%` }} aria-hidden="true" />
+      <code>MASTER SWORD / {String(Math.round(progress)).padStart(3, '0')}%</code>
     </div>
   );
 }

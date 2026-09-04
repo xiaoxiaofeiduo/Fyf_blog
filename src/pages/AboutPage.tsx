@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { HudDivider } from '../components/HudDivider';
 import { SignalMarquee } from '../components/SignalMarquee';
+import { KorokSpot } from '../components/KorokSpot';
 
 interface IpInfo {
   ip?: string;
@@ -252,8 +253,8 @@ export function AboutPage() {
     <section className="page-section about-layout mission-page-background about-page-background">
       <div className="about-hero">
         <div className="page-title">
-          <span className="eyebrow">About</span>
-          <h1>关于云飞</h1>
+          <span className="eyebrow">Traveler Profile / Hyrule Compendium</span>
+          <h1>海拉鲁旅人档案</h1>
           <p>
             我是一名关注质量、安全与工程效率的软件测试工程师。这里记录真实项目中遇到的问题，
             以及我如何复现现象、寻找证据、验证方案并沉淀结论。
@@ -268,7 +269,7 @@ export function AboutPage() {
               <img src={pilotAvatarUrl} alt="" />
             </span>
             <div>
-              <span className="about-profile-status"><i /> GN SYSTEM ONLINE</span>
+              <span className="about-profile-status"><i /> TRAVELER REGISTERED</span>
               <strong>云飞</strong>
               <p>软件测试工程师</p>
             </div>
@@ -282,7 +283,7 @@ export function AboutPage() {
       </div>
 
       <div className="about-section-heading">
-        <span className="eyebrow">01 / Capabilities</span>
+        <span className="eyebrow">01 / Traveler Abilities</span>
         <div><h2>关注领域</h2><p>围绕风险、质量和效率建立可执行的验证能力。</p></div>
       </div>
       <div className="about-grid about-focus-grid">
@@ -305,12 +306,12 @@ export function AboutPage() {
       </div>
 
       <div className="about-section-heading">
-        <span className="eyebrow">02 / Workflow</span>
+        <span className="eyebrow">02 / Adventure Route</span>
         <div><h2>工作方法</h2><p>从问题现场出发，形成有证据、能复现、可复用的完整闭环。</p></div>
       </div>
       <section className="about-method-section">
         <Card className="about-method-card">
-          <span className="eyebrow">Method</span>
+          <span className="eyebrow">Zelda's Guidance / Method</span>
           <h2>把不确定变成证据链</h2>
           <p>
             测试不只是执行用例。更重要的是理解系统、提出假设，并用可重复的实验确认风险和改进是否真实有效。
@@ -335,7 +336,7 @@ export function AboutPage() {
       <HudDivider />
 
       <div className="about-section-heading about-section-heading-compact">
-        <span className="eyebrow">03 / Notes</span>
+        <span className="eyebrow">03 / Field Notes</span>
         <div><h2>关于这份日志</h2><p>它如何组织内容，以及为什么持续记录。</p></div>
       </div>
       <div className="faq-list">
@@ -386,8 +387,9 @@ export function AboutPage() {
       <SignalMarquee
         variant="about"
         fullBleed
-        items={['PILOT PROFILE', 'CELESTIAL TEST LAB', 'SYSTEM ONLINE', 'VEDA LINK']}
+        items={['TRAVELER PROFILE', 'PRINCESS ZELDA', 'WISDOM LIGHT', 'PURAH PAD ONLINE']}
       />
+      <KorokSpot id="wisdom-korok" label="检查旅人档案下方的树叶" />
     </section>
   );
 }

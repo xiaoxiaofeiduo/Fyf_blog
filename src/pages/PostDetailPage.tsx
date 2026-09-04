@@ -117,7 +117,7 @@ export function PostDetailPage() {
       </button>
 
       <header className="article-hero">
-        <div className="article-file-code">VEDA INTELLIGENCE FILE / {post.slug.toUpperCase().slice(-16)}</div>
+        <div className="article-file-code">PURAH PAD ADVENTURE LOG / {post.slug.toUpperCase().slice(-16)}</div>
         <div className="article-meta">
           <span>{formatDate(post.date)}</span>
           <span>{post.readingTime}</span>
@@ -144,7 +144,7 @@ export function PostDetailPage() {
       <SignalMarquee
         variant="article"
         fullBleed
-        items={['TACTICAL BRIEFING', 'INTELLIGENCE FILE', 'VERIFY TARGET', 'MISSION DATA']}
+        items={['ADVENTURE NOTE', 'HYRULE ARCHIVE', 'FOLLOW THE CLUE', 'PURAH PAD DATA']}
       />
     </article>
   );

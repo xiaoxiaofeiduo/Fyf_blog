@@ -1,8 +1,7 @@
-import { Card } from 'animal-island-ui';
 import { useSearchParams } from 'react-router-dom';
-import { HudDivider } from '../components/HudDivider';
+import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
-import { SignalMarquee } from '../components/SignalMarquee';
+import { KorokSpot } from '../components/KorokSpot';
 import { posts } from '../lib/posts';
 
 const categoryTags = Array.from(new Set(posts.map((post) => post.category).filter((tag): tag is string => Boolean(tag))));
@@ -17,159 +16,77 @@ function clampPage(page: number, totalPages: number) {
   return Math.min(page, totalPages);
 }
 
-function getVisiblePages(currentPage: number, totalPages: number) {
-  if (totalPages <= 5) {
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
-  }
-
-  const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
-  return Array.from({ length: 5 }, (_, index) => start + index);
-}
-
 export function PostsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedTag = searchParams.get('tag') ?? '';
   const requestedPage = Number(searchParams.get('page') ?? '1');
-  const filteredPosts = selectedTag
-    ? posts.filter((post) => post.tags.includes(selectedTag))
-    : posts;
+  const filteredPosts = selectedTag ? posts.filter((post) => post.tags.includes(selectedTag)) : posts;
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
   const currentPage = clampPage(requestedPage, totalPages);
-  const pageStart = (currentPage - 1) * pageSize;
-  const currentPosts = filteredPosts.slice(pageStart, pageStart + pageSize);
-  const visiblePages = getVisiblePages(currentPage, totalPages);
+  const currentPosts = filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   const updateFilter = (tag: string) => {
-    const nextParams = new URLSearchParams();
-    if (tag) nextParams.set('tag', tag);
-    setSearchParams(nextParams);
+    const next = new URLSearchParams();
+    if (tag) next.set('tag', tag);
+    setSearchParams(next);
   };
 
   const updatePage = (page: number) => {
-    const nextPage = clampPage(page, totalPages);
-    const nextParams = new URLSearchParams();
-    if (selectedTag) nextParams.set('tag', selectedTag);
-    if (nextPage > 1) nextParams.set('page', String(nextPage));
-    setSearchParams(nextParams);
+    const next = new URLSearchParams();
+    if (selectedTag) next.set('tag', selectedTag);
+    const safePage = clampPage(page, totalPages);
+    if (safePage > 1) next.set('page', String(safePage));
+    setSearchParams(next);
   };
 
   return (
-    <section className="page-section mission-page-background archive-page-background">
-      <div className="page-title">
-        <span className="eyebrow">Archive</span>
-        <h1>文章</h1>
-        <p>按时间整理安全测试、防护验证、系统运维和大模型实践记录。用标签快速筛选主题，用文章复盘真实问题。</p>
-      </div>
+    <section className="purah-archive">
+      <aside className="map-console">
+        <div className="console-eye" aria-hidden="true"><i /><i /></div>
+        <span className="world-kicker">PURAH PAD / MAP DATA</span>
+        <h1>冒险日志</h1>
+        <p>选择一个区域，调取旅途中留下的技术坐标。</p>
 
-      <div className="archive-telemetry" aria-label="档案库状态">
-        <div><small>TOTAL FILES</small><strong>{String(posts.length).padStart(2, '0')}</strong><span>全部任务记录</span></div>
-        <div><small>ACTIVE FILTER</small><strong>{selectedTag || 'ALL'}</strong><span>当前战术筛选</span></div>
-        <div><small>PAGE CHANNEL</small><strong>{String(currentPage).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}</strong><span>档案频道</span></div>
-        <div><small>VEDA SYNC</small><strong className="status-ready">ONLINE</strong><span>{filteredPosts.length} 条匹配记录</span></div>
-      </div>
-
-      <Card className="tag-panel">
-        <div className="tag-panel-title">
-          <strong>主题标签</strong>
-          <span>选择一个方向继续阅读</span>
-        </div>
-        <div className="tag-row">
-          <button
-            className={`tag tag-button ${selectedTag ? '' : 'tag-active'}`}
-            type="button"
-            onClick={() => updateFilter('')}
-          >
-            全部
+        <div className="region-selector" aria-label="文章区域筛选">
+          <button className={!selectedTag ? 'is-selected' : ''} type="button" onClick={() => updateFilter('')}>
+            <MapPin size={15} />全部区域 <span>{posts.length}</span>
           </button>
-          {tags.map((tag) => (
-            <button
-              key={tag}
-              className={`tag tag-button ${selectedTag === tag ? 'tag-active' : 'tag-soft'}`}
-              type="button"
-              onClick={() => updateFilter(tag)}
-            >
-              {tag}
+          {categoryTags.map((tag, index) => (
+            <button key={tag} className={selectedTag === tag ? 'is-selected' : ''} type="button" onClick={() => updateFilter(tag)}>
+              <i>{String(index + 1).padStart(2, '0')}</i>{tag}<span>{posts.filter((post) => post.category === tag).length}</span>
             </button>
           ))}
         </div>
-      </Card>
 
-      <HudDivider />
+        <details className="all-tags">
+          <summary>展开全部地图标记</summary>
+          <div>{tags.map((tag) => <button type="button" key={tag} onClick={() => updateFilter(tag)}>{tag}</button>)}</div>
+        </details>
 
-      <div className="archive-summary">
-        <strong>{selectedTag || '全部文章'}</strong>
-        <span>共 {filteredPosts.length} 篇，第 {currentPage} / {totalPages} 页</span>
-      </div>
+        <div className="map-readout"><span>ACTIVE REGION</span><strong>{selectedTag || 'HYRULE'}</strong><small>{filteredPosts.length} LOGS FOUND</small></div>
+      </aside>
 
-      {currentPosts.length > 0 ? (
-        <div className="post-list">
-          {currentPosts.map((post) => (
-            <PostCard key={post.slug} post={post} compact />
-          ))}
+      <div className="archive-ledger">
+        <header>
+          <div><span>ADVENTURE LOG / {String(currentPage).padStart(2, '0')}</span><h2>{selectedTag || '全部探索记录'}</h2></div>
+          <p>第 {currentPage} / {totalPages} 页</p>
+        </header>
+
+        <div className="ledger-list">
+          {currentPosts.length ? currentPosts.map((post) => <PostCard key={post.slug} post={post} />) : (
+            <div className="empty-ledger"><h2>这里还没有留下足迹</h2><button type="button" onClick={() => updateFilter('')}>返回完整地图</button></div>
+          )}
         </div>
-      ) : (
-        <Card className="empty-state">
-          <h2>没有匹配的文章</h2>
-          <p>当前标签下还没有内容，可以回到全部文章继续浏览。</p>
-          <button className="pagination-button pagination-button-primary" type="button" onClick={() => updateFilter('')}>
-            查看全部文章
-          </button>
-        </Card>
-      )}
 
-      {filteredPosts.length > pageSize && (
-        <nav className="pagination" aria-label="文章分页">
-          <button
-            className="pagination-button"
-            type="button"
-            disabled={currentPage === 1}
-            onClick={() => updatePage(1)}
-          >
-            首页
-          </button>
-          <button
-            className="pagination-button"
-            type="button"
-            disabled={currentPage === 1}
-            onClick={() => updatePage(currentPage - 1)}
-          >
-            上一页
-          </button>
-          {visiblePages.map((page) => (
-            <button
-              key={page}
-              className={`pagination-button ${currentPage === page ? 'pagination-button-primary' : ''}`}
-              type="button"
-              aria-current={currentPage === page ? 'page' : undefined}
-              onClick={() => updatePage(page)}
-            >
-              {page}
-            </button>
-          ))}
-          <button
-            className="pagination-button"
-            type="button"
-            disabled={currentPage === totalPages}
-            onClick={() => updatePage(currentPage + 1)}
-          >
-            下一页
-          </button>
-          <button
-            className="pagination-button"
-            type="button"
-            disabled={currentPage === totalPages}
-            onClick={() => updatePage(totalPages)}
-          >
-            末页
-          </button>
-        </nav>
-      )}
-
-      <SignalMarquee
-        variant="archive"
-        fullBleed
-        items={['ARCHIVE LINK', 'MISSION RECORDS', 'DATA SCAN', 'KNOWLEDGE BASE']}
-      />
+        {totalPages > 1 && (
+          <nav className="ledger-pagination" aria-label="文章分页">
+            <button type="button" disabled={currentPage === 1} onClick={() => updatePage(currentPage - 1)}><ChevronLeft size={17} />上一段旅程</button>
+            <span>{String(currentPage).padStart(2, '0')} <i /> {String(totalPages).padStart(2, '0')}</span>
+            <button type="button" disabled={currentPage === totalPages} onClick={() => updatePage(currentPage + 1)}>下一段旅程<ChevronRight size={17} /></button>
+          </nav>
+        )}
+        <KorokSpot id="archive-korok" label="检查日志边缘的树叶" />
+      </div>
     </section>
   );
 }

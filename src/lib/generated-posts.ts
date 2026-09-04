@@ -2,6 +2,65 @@
 
 export const generatedPosts = [
   {
+    "slug": "功能测试-blog_agent_intent_detection",
+    "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
+    "category": "功能测试",
+    "title": "从 Mock LLM 到 Agent 安全测试平台：五类风险的确定性验证实践",
+    "date": "2026-08-13",
+    "summary": "基于 agent_test_platform 最新代码，介绍如何用可控 tool_calls、YAML 场景、参数化专项测试和 Web 控制台，确定性验证意图偏离、资源耗尽、凭据泄漏、灾难性命令与不可信源执行防护。",
+    "tags": [
+      "功能测试",
+      "Agent安全",
+      "Mock LLM",
+      "自动化测试",
+      "Django",
+      "Tool Calling",
+      "黑盒测试"
+    ],
+    "cover": "app-teal",
+    "readingTime": "18 分钟",
+    "featured": false
+  },
+  {
+    "slug": "AI-实践-deepseek-v4-copilot-multimodal-agent",
+    "sourcePath": "../content/posts/AI 实践/deepseek-v4-copilot-multimodal-agent/index.md",
+    "category": "AI 实践",
+    "title": "为 DeepSeek V4 补上视觉能力：Copilot Chat 视觉代理实践",
+    "date": "2026-07-28",
+    "summary": "DeepSeek V4 擅长推理和编码，却无法直接读取图片。本文通过 Copilot Chat 视觉代理补齐这一短板，并整理配置方法、适用场景、能力边界与验证清单。",
+    "tags": [
+      "AI 实践",
+      "DeepSeek V4",
+      "GitHub Copilot",
+      "VS Code",
+      "多模态Agent",
+      "视觉代理",
+      "Agent"
+    ],
+    "cover": "app-blue",
+    "readingTime": "7 分钟",
+    "featured": true
+  },
+  {
+    "slug": "AI-实践-vLLM模型加载失败排查记录_NVML_Unknown_Error",
+    "sourcePath": "../content/posts/AI 实践/vLLM模型加载失败排查记录_NVML_Unknown_Error.md",
+    "category": "AI 实践",
+    "title": "vLLM 模型加载失败排查记录：Failed to infer device type 与 NVML Unknown Error",
+    "date": "2026-07-17",
+    "summary": "使用 vLLM 部署开源大模型时，Docker 容器无法初始化 NVML 导致启动失败的完整排查过程与解决方案。",
+    "tags": [
+      "AI 实践",
+      "vLLM",
+      "Docker",
+      "GPU",
+      "NVIDIA",
+      "故障排查"
+    ],
+    "cover": "app-blue",
+    "readingTime": "8 分钟",
+    "featured": false
+  },
+  {
     "slug": "系统运维-terminal-multifunction-guide",
     "sourcePath": "../content/posts/系统运维/terminal-multifunction-guide.md",
     "category": "系统运维",
@@ -39,25 +98,6 @@ export const generatedPosts = [
     ],
     "cover": "app-teal",
     "readingTime": "10 分钟",
-    "featured": false
-  },
-  {
-    "slug": "功能测试-blog_agent_intent_detection",
-    "sourcePath": "../content/posts/功能测试/blog_agent_intent_detection.md",
-    "category": "功能测试",
-    "title": "如何为 LLM Agent 安全检测构建 Mock 测试平台",
-    "date": "2026-06-10",
-    "summary": "介绍一套基于 Mock LLM + YAML 场景化用例 + Web 控制台的自动化测试方案，目前已沉淀 97 个测试用例，覆盖 11 个安全维度。",
-    "tags": [
-      "功能测试",
-      "Mock测试",
-      "LLM Agent",
-      "安全检测",
-      "自动化测试",
-      "Django"
-    ],
-    "cover": "app-teal",
-    "readingTime": "12 分钟",
     "featured": false
   },
   {

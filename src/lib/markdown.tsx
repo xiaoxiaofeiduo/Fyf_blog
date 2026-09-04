@@ -1,18 +1,45 @@
+import { Children, isValidElement, type ReactNode } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import { isValidElement, type ReactNode } from 'react';
+import { MermaidDiagram } from '../components/MermaidDiagram';
 import { headingId } from './headings';
+
+type HastNode = {
+  type?: string;
+  tagName?: string;
+  value?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+};
 
 function normalizeUrl(value: string) {
   return value.trim().replace(/^<(.+)>$/, '$1');
 }
 
-function nodeText(node: ReactNode): string {
-  if (typeof node === 'string' || typeof node === 'number') return String(node);
-  if (Array.isArray(node)) return node.map(nodeText).join('');
-  if (isValidElement<{ children?: ReactNode }>(node)) return nodeText(node.props.children);
-  return '';
+function hastText(node: HastNode): string {
+  if (node.type === 'text') return node.value ?? '';
+  return node.children?.map(hastText).join('') ?? '';
+}
+
+function rehypeHeadingIds() {
+  return (tree: HastNode) => {
+    const ids = new Map<string, number>();
+    const visit = (node: HastNode) => {
+      if (node.type === 'element' && (node.tagName === 'h2' || node.tagName === 'h3')) {
+        const baseId = headingId(hastText(node));
+        const count = ids.get(baseId) ?? 0;
+        ids.set(baseId, count + 1);
+        node.properties = {
+          ...node.properties,
+          id: count ? `${baseId}-${count + 1}` : baseId,
+          tabIndex: -1,
+        };
+      }
+      node.children?.forEach(visit);
+    };
+    visit(tree);
+  };
 }
 
 export function renderMarkdown(
@@ -21,21 +48,8 @@ export function renderMarkdown(
   resolveLink: (url: string) => string | undefined = () => undefined
 ) {
   let imageIndex = 0;
-  const headingIds = new Map<string, number>();
-  const uniqueHeadingId = (text: string) => {
-    const baseId = headingId(text);
-    const count = headingIds.get(baseId) ?? 0;
-    headingIds.set(baseId, count + 1);
-    return count ? `${baseId}-${count + 1}` : baseId;
-  };
 
   const components: Components = {
-    h2({ children, ...props }) {
-      return <h2 {...props} id={uniqueHeadingId(nodeText(children))}>{children}</h2>;
-    },
-    h3({ children, ...props }) {
-      return <h3 {...props} id={uniqueHeadingId(nodeText(children))}>{children}</h3>;
-    },
     a({ href, children, ...props }) {
       const normalizedHref = href ? normalizeUrl(href) : undefined;
       const resolvedHref = normalizedHref ? (resolveLink(normalizedHref) ?? normalizedHref) : undefined;
@@ -69,6 +83,17 @@ export function renderMarkdown(
       );
     },
     pre({ children, ...props }) {
+      const child = Children.count(children) === 1 ? Children.only(children) : null;
+
+      if (isValidElement<{ className?: string; children?: ReactNode }>(child)) {
+        const languageClasses = child.props.className?.split(/\s+/) ?? [];
+
+        if (languageClasses.includes('language-mermaid')) {
+          const source = Children.toArray(child.props.children).join('').replace(/\n$/, '');
+          return <MermaidDiagram source={source} />;
+        }
+      }
+
       return (
         <pre {...props} className="article-code">
           {children}
@@ -87,7 +112,7 @@ export function renderMarkdown(
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw]}
+      rehypePlugins={[rehypeRaw, rehypeHeadingIds]}
       components={components}
     >
       {markdown}
